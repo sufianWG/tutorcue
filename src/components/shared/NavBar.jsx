@@ -35,7 +35,7 @@ const NavBar = () => {
                 <div className="logo">
                     <Image src={isDark ? LightLogo : Logo} alt="Logo" width={100} height={50}></Image>
                 </div>
-                <div className={`navitems flex flex-col lg:flex-row gap-3 md:gap-6 items-center bg-[var(--surface)] lg: absolute lg:static ${open ? "justify-start items-start top-19 right-0 lg: p-3 lg: h-full lg: transition-all duration-300 ease-in-out" : "right-[-500px]"} md:block`}>
+                <div className={`navitems flex flex-col lg:flex-row gap-3 md:gap-6 items-center bg-[var(--surface)] lg: absolute lg:static ${open ? "justify-start items-start top-19 right-0 lg: p-3 lg: h-full lg: shadow-lg transition-all duration-300 ease-in-out" : "right-[-500px]"} md:block`}>
                     {navItems.map((navItem, ind) => (
                         <NavLink key={ind} href={navItem.path} className=" lg:mx-4 text-[var(--secondary)] hover:text-[var(--primary)]" setOpen={setOpen}>
                             {navItem.label}
@@ -64,7 +64,6 @@ const NavBar = () => {
                         )}
                     </button>
                 </div>
-
             </nav>
         </div>
     );
