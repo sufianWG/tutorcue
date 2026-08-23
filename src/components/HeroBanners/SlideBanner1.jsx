@@ -7,7 +7,7 @@ import HeroBannerImage from '@/assets/Slider-1-Img.png';
 const SlideBanner1 = () => {
     return (
         <div className='bg-[var(--surface-alt)]'>
-            <div className='max-w-6xl mx-auto py-30 px-6 lg: max-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
+            <div className='max-w-6xl mx-auto py-20 px-6 lg: max-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
                 <div className="space-y-4">
                     <h3 className="text-[var(--primary)] text-lg">LEARN AT THE RIGHT TIME</h3>
                     <h1 className='text-[var(--secondary)] text-5xl font-bold'>Find the right tutor <br /> for the way <span className='text-[var(--primary)]'>you learn.</span></h1>
