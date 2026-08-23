@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "@heroui/styles"; 
 :root {
   --primary: #0f766e;
   --primary-hover: #115e59;
@@ -28,7 +28,7 @@
   --error-bg: #fee2e2;
 }
 
-[data-theme="dark"] {
+.dark {
   --primary: #2dd4bf;
   --primary-hover: #14b8a6;
 

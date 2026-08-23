@@ -1,5 +1,7 @@
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import ThemeProvider from "../components/shared/ThemeProvider";
+import NavBar from "@/components/shared/NavBar";
 
 const ManropeFont = Manrope({
   subsets: ["latin"],
@@ -13,12 +15,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="en" suppressHydrationWarning
       className={`${ManropeFont.className} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
-        </body>
+        <ThemeProvider>
+          <NavBar></NavBar>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
