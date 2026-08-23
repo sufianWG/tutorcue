@@ -1,21 +1,17 @@
 // app/components/theme-switcher.tsx
 "use client";
 
-import { Button, Switch } from "@heroui/react";
+import { Switch } from "@heroui/react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme, theme } = useTheme();
-  console.log("resolvedTheme", resolvedTheme)
+  // console.log("resolvedTheme", resolvedTheme)
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+    if (!resolvedTheme){
+      return null;
+    }
 
   // const activeTheme = theme === "system" ? resolvedTheme : theme;
   const isDark = resolvedTheme == "dark"

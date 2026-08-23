@@ -1,7 +1,6 @@
 "use client";
 
 import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import Logo from '@/assets/tutorCue.png';
@@ -22,15 +21,11 @@ const NavBar = () => {
     ]
 
     const [open, setOpen] = useState(false);
-
-    const [mounted, setMounted] = useState(false);
     const { resolvedTheme } = useTheme();
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) return null;
+    if (!resolvedTheme){
+        return null;
+    }
 
     const isDark = resolvedTheme == "dark"
 
