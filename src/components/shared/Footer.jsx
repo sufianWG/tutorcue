@@ -5,7 +5,7 @@ import LightLogo from '@/assets/tutorCue-light.png';
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaLinkedin, FaPhone, FaXTwitter, FaYoutube } from "react-icons/fa6";
-import { FaMapMarker } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
     const { resolvedTheme } = useTheme();
@@ -45,38 +45,38 @@ const Footer = () => {
                     <div className="lg:col-span-1 space-y-2">
                         <h3 className="text-[var(--secondary)] font-bold">Platform</h3>
                         <ul className="space-y-1">
-                            <Link href="/" className="text-base"> <li>Home</li> </Link>
-                            <Link href="/tutors" className="text-base"> <li>Tutors</li> </Link>
-                            <Link href="/add-tutor" className="text-base"> <li>Add Tutor</li> </Link>
-                            <Link href="/my-tutors" className="text-base"> <li>My Tutors</li> </Link>
-                            <Link href="/my-booked-sessions" className="text-base"> <li>My Sessions</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Home</li> </Link>
+                            <Link href="/tutors" className="text-base hover:text-[var(--muted)]"> <li>Tutors</li> </Link>
+                            <Link href="/add-tutor" className="text-base hover:text-[var(--muted)]"> <li>Add Tutor</li> </Link>
+                            <Link href="/my-tutors" className="text-base hover:text-[var(--muted)]"> <li>My Tutors</li> </Link>
+                            <Link href="/my-booked-sessions" className="text-base hover:text-[var(--muted)]"> <li>My Sessions</li> </Link>
                         </ul>
                     </div>
                     <div className="lg:col-span-1 space-y-2">
                         <h3 className="text-[var(--secondary)] font-bold">Learning</h3>
                         <ul className="space-y-1">
-                            <Link href="/" className="text-base"> <li>All Subjects</li> </Link>
-                            <Link href="/" className="text-base"> <li>Online Tutors</li> </Link>
-                            <Link href="/" className="text-base"> <li>Offline Tutors</li> </Link>
-                            <Link href="/" className="text-base"> <li>How It Works</li> </Link>
-                            <Link href="/" className="text-base"> <li>Become a Tutor</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>All Subjects</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Online Tutors</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Offline Tutors</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>How It Works</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Become a Tutor</li> </Link>
                         </ul>
                     </div>
                     <div className="lg:col-span-1 space-y-2">
                         <h3 className="text-[var(--secondary)] font-bold">Support</h3>
                         <ul className="space-y-1">
-                            <Link href="/" className="text-base"> <li>Help Center</li> </Link>
-                            <Link href="/" className="text-base"> <li>Safety & Trust</li> </Link>
-                            <Link href="/" className="text-base"> <li>Cancellation Policy</li> </Link>
-                            <Link href="/" className="text-base"> <li>Terms of Service</li> </Link>
-                            <Link href="/" className="text-base"> <li>Privacy Policy</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Help Center</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Safety & Trust</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Cancellation Policy</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Terms of Service</li> </Link>
+                            <Link href="/" className="text-base hover:text-[var(--muted)]"> <li>Privacy Policy</li> </Link>
                         </ul>
                     </div>
                     <div className="lg:col-span-2 space-y-2">
                         <h3 className="text-[var(--secondary)] font-bold">Contact</h3>
                         <p className="flex items-center gap-2"><FaEnvelope /> support@tutorcue.com</p>
-                        <p className="flex items-center gap-2"><FaPhone /> +91 98765 43210</p>
-                        <p className="flex items-center gap-2"><FaMapMarker /> 42, Church St, Richson <br /> Karnataka, Kolkata, <br /> Karnataka</p>
+                        <p className="flex items-center gap-2"><FaPhone /> +880 1712-345678</p>
+                        <p className="flex items-center gap-2"><FaMapMarkerAlt /> 42, Agrabad Commercial Area, <br /> Chattogram 4100, <br /> Bangladesh</p>
                     </div>
                 </div>
                 <div className="footerCopyRight text-[var(--secondary)]/60 w-full flex flex-col lg:flex-row justify-between items-center gap-3 mt-4 border-t border-[var(--secondary)]/15 pt-4 ">
