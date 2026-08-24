@@ -1,9 +1,5 @@
-import Image from "next/image";
-import NavBar from "../components/shared/NavBar";
-import SliderBanner1 from "@/components/HeroBanners/SlideBanner1";
-import SliderBanner2 from "@/components/HeroBanners/SlideBanner2";
-import SliderBanner3 from "@/components/HeroBanners/SlideBanner3";
 import HeroSlider from "@/components/HeroSlider";
+import AvailableTutors from "@/components/Home/AvailableTutors";
 import ExploreBySubject from "@/components/Home/ExploreBySubject";
 
 export default function Home() {
@@ -11,6 +7,7 @@ export default function Home() {
     <div>
       <HeroSlider></HeroSlider>
       <ExploreBySubject></ExploreBySubject>
+      <AvailableTutors></AvailableTutors>
     </div>
   );
 }

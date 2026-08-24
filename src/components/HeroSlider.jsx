@@ -17,10 +17,10 @@ const HeroSlider = () => {
             pauseOnMouseEnter: true,
         }} autoHeight observer observeParents>
             <SwiperSlide>
-                <SlideBanner2></SlideBanner2>
+                <SlideBanner1></SlideBanner1>
             </SwiperSlide>
             <SwiperSlide>
-                <SlideBanner1></SlideBanner1>
+                <SlideBanner2></SlideBanner2>
             </SwiperSlide>
             <SwiperSlide>
                 <SlideBanner3></SlideBanner3>

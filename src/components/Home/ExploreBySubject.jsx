@@ -1,3 +1,5 @@
+"use client"
+
 import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight, FaReact } from 'react-icons/fa';
@@ -11,12 +13,12 @@ import { BiLeaf } from 'react-icons/bi';
 
 const ExploreBySubject = () => {
     const subjects = [
-        { name: "Mathematics", total: 240, sublink: "/", icon: <IoCalculatorOutline size={25} /> },
-        { name: "Physics", total: 180, sublink: "/", icon: <FaReact size={25} /> },
-        { name: "English", total: 210, sublink: "/", icon: <GiOpenBook size={25} /> },
-        { name: "Computer Science", total: 190, sublink: "/", icon: <GrPersonalComputer size={25} /> },
-        { name: "Chemistry", total: 160, sublink: "/", icon: <SlChemistry size={25} /> },
-        { name: "Biology", total: 150, sublink: "/", icon: <BiLeaf size={25} /> },
+        { id: 1, name: "Mathematics", total: 240, sublink: "/", icon: <IoCalculatorOutline size={25} /> },
+        { id: 2, name: "Physics", total: 180, sublink: "/", icon: <FaReact size={25} /> },
+        { id: 3, name: "English", total: 210, sublink: "/", icon: <GiOpenBook size={25} /> },
+        { id: 4, name: "Computer Science", total: 190, sublink: "/", icon: <GrPersonalComputer size={25} /> },
+        { id: 5, name: "Chemistry", total: 160, sublink: "/", icon: <SlChemistry size={25} /> },
+        { id: 6, name: "Biology", total: 150, sublink: "/", icon: <BiLeaf size={25} /> },
     ]
     return (
         <div className='bg-[var(--surface)]'>
@@ -31,14 +33,15 @@ const ExploreBySubject = () => {
                 <div className='rightSide md:flex-2'>
                     <div className='border-2 border-[var(--border)]/70 rounded-md'>
                         {
-                            subjects.map(sub => {
-                                return <><div className='flex gap-3 items-center justify-between p-4 border-b-2 border-[var(--border)]/70'>
-                                    <div className='text-[var(--secondary)] flex items-center gap-5'> {sub.icon}  <span className='text-lg font-bold'>{sub.name}</span></div>
-                                    <div className='text-[var(--muted)] flex items-center gap-2'> 
-                                        <Link href={sub.sublink} className='flex items-center gap-5'><span>{sub.total}+ Tutors</span> <FaArrowRightLong /></Link> 
+                            subjects.map((sub) => {
+                                return <div key={sub.id}>
+                                    <div className='flex gap-3 items-center justify-between p-4 border-b-2 border-[var(--border)]/70'>
+                                        <div className='text-[var(--secondary)] flex items-center gap-5'> {sub.icon}  <span className='text-lg font-bold'>{sub.name}</span></div>
+                                        <div className='text-[var(--muted)] flex items-center gap-2'>
+                                            <Link href={sub.sublink} className='flex items-center gap-5'><span>{sub.total}+ Tutors</span> <FaArrowRightLong /></Link>
+                                        </div>
                                     </div>
                                 </div>
-                                </>
                             })
                         }
 
