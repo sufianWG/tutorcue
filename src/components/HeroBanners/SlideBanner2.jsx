@@ -20,11 +20,11 @@ const SlideBanner2 = () => {
     const isDark = resolvedTheme == "dark"
     return (
         <div className='bg-[var(--surface-alt)]'>
-            <div className='max-w-6xl mx-auto py-10 lg:py-15 px-6 lg: min-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
+            <div className='max-w-6xl mx-auto py-10 lg:py-15 px-8 md:px-12 lg:px-0 lg:min-h-screen flex flex-col md:flex-row items-center justify-start md:justify-between gap-10'>
                 <div className="space-y-4">
                     <h3 className="text-[var(--primary)] text-xs font-bold uppercase bg-[var(--muted)]/10 px-4 py-2 rounded-full w-fit flex items-center gap-2"> <SiKnowledgebase size={15} /> Learn Smarter, Not Harder</h3>
-                    <h1 className='text-[var(--secondary)] text-5xl font-bold'>Expert Tutors <br /> <span className='text-[var(--primary)]'>Better Results.</span></h1>
-                    <p className="text-[var(--muted)] text-base">Connect with verified tutors who are passionate
+                    <h1 className='text-[var(--secondary)] text-3xl sm:text-4xl lg:text-5xl font-bold'>Expert Tutors <br /> <span className='text-[var(--primary)]'>Better Results.</span></h1>
+                    <p className="text-[var(--muted)] text-base md:w-2/3 lg:w-full">Connect with verified tutors who are passionate
                         about teaching and dedicated to your success.</p>
                     <div className="mt-6 flex flex-col md:flex-row gap-4 md:gap-8 text-[var(--secondary)] text-sm font-bold">
                         <div className="flex items-center gap-2"> <span className="bg-[var(--primary)]/30 text-[var(--secondary)] p-2 rounded-full"> <FaUser size={18} /> </span>  Verified Tutors </div>
@@ -41,8 +41,8 @@ const SlideBanner2 = () => {
                         <Image src={isDark ? HeroBannerImage2Light : HeroBannerImage2} alt="Hero Banner Image" fill className="object-contain" />
                     </div>
 
-                    <div className="relative lg:absolute lg:-top-2 lg:-left-10 flex flex-col items-center lg:items-start">
-                        <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start bg-[var(--surface)] shadow-lg rounded-lg p-4 mt-4 lg:mt-0 mb-2">
+                    <div className="relative md:absolute md:-top-20 lg:-top-2 md:-left-35 flex md:-left-10 flex-col items-center md:items-start">
+                        <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start bg-[var(--surface)] shadow-lg rounded-lg p-4 mt-4 md:mt-0 mb-0 lg:mb-2">
                             <div className="bg-[var(--primary)]/30 text-[var(--secondary)] p-2 rounded-full"><HiUsers size={24} /></div>
                             <div>
                                 <h3 className="text-lg font-bold"> 10,000+</h3>

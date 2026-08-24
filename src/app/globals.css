@@ -1,5 +1,16 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
+
+.hero-slider{
+  --swiper-navigation-size: 28px;
+}
+
+@media (min-width: 1024px){
+  .hero-slider{
+    --swiper-navigation-sides-offset: 40px;
+  }
+}
+
 :root {
   --primary: #0f766e;
   --primary-hover: #115e59;
