@@ -3,27 +3,16 @@ import { Button } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
 import { FaPlay, FaArrowRight, FaRegCalendarAlt } from "react-icons/fa";
-import HeroBannerImage2 from '@/assets/slider-2-img.png';
-import HeroBannerImage2Light from '@/assets/slider-2-img-light.png';
-import { useTheme } from 'next-themes';
-import { SiKnowledgebase } from 'react-icons/si';
-import { FaGraduationCap, FaStar, FaUser } from 'react-icons/fa6';
-import { MdOutlineBarChart, MdOutlineSecurity } from 'react-icons/md';
-import { HiUsers } from 'react-icons/hi';
+import HeroBannerImage3 from '@/assets/slider-img-3.png';
+import { FaUser } from 'react-icons/fa6';
+import { MdOutlineSecurity } from 'react-icons/md';
 import { IoVideocam } from 'react-icons/io5';
 const SlideBanner3 = () => {
-    const { resolvedTheme } = useTheme();
-
-    if (!resolvedTheme) {
-        return null;
-    }
-
-    const isDark = resolvedTheme == "dark"
     return (
         <div className='bg-[var(--surface-alt)]'>
             <div className='max-w-6xl mx-auto py-10 lg:py-15 px-6 lg: min-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
                 <div className="space-y-4">
-                    <h3 className="text-[var(--primary)] text-lg font-bold uppercase bg-[var(--muted)]/10 px-4 py-2 rounded-full w-fit flex items-center gap-2"> <FaRegCalendarAlt size={20} /> Flexible. Convenient. Online.</h3>
+                    <h3 className="text-[var(--primary)] text-xs font-bold uppercase bg-[var(--muted)]/10 px-4 py-2 rounded-full w-fit flex items-center gap-2"> <FaRegCalendarAlt size={15} /> Flexible. Convenient. Online.</h3>
                     <h1 className='text-[var(--secondary)] text-5xl font-bold'>Learn Anytime, <br /> <span className='text-[var(--primary)]'>Anywhere</span></h1>
                     <p className="text-[var(--muted)] text-base">Book sessions that fit your schedule. Learn from the
                         comfort of your home through our seamless platform.</p>
@@ -39,10 +28,10 @@ const SlideBanner3 = () => {
                 </div>
                 <div className="lg:mb-0 relative">
                     <div className="aspect-[3/2] w-[300px] lg:w-[500px] max-w-[500px] relative mx-auto lg:">
-                        <Image src={isDark ? HeroBannerImage2Light : HeroBannerImage2} alt="Hero Banner Image" fill className="object-contain" />
+                        <Image src={HeroBannerImage3} alt="Hero Banner Image" fill className="object-contain" />
                     </div>
 
-                    <div className="relative lg:absolute lg: -top-20 lg:right-0 flex flex-col items-center lg:items-start bg-[var(--surface)] shadow-lg p-4 rounded-md">
+                    <div className="relative static lg:absolute -top-20 lg:right-0 flex flex-col items-center lg:items-start bg-[var(--surface)] shadow-lg p-4 rounded-md mx-4 lg:">
                         <h3 className='font-bold text-xs'>Upcoming Session</h3>
                         <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg p-4 ">
                             <div className="bg-[var(--primary)]/30 text-[var(--secondary)] p-2 rounded-full"><FaUser size={24} /></div>

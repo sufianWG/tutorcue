@@ -7,7 +7,7 @@ import SliderBanner3 from "@/components/HeroBanners/SlideBanner3";
 export default function Home() {
   return (
     <div>
-      <SliderBanner3></SliderBanner3>
+      <SliderBanner1></SliderBanner1>
       <div>
         <h1>Another section comming soon...</h1>
       </div>

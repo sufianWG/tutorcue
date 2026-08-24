@@ -22,7 +22,7 @@ const SlideBanner2 = () => {
         <div className='bg-[var(--surface-alt)]'>
             <div className='max-w-6xl mx-auto py-10 lg:py-15 px-6 lg: min-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
                 <div className="space-y-4">
-                    <h3 className="text-[var(--primary)] text-lg font-bold uppercase bg-[var(--muted)]/10 px-4 py-2 rounded-full w-fit flex items-center gap-2"> <SiKnowledgebase size={20} /> Learn Smarter, Not Harder</h3>
+                    <h3 className="text-[var(--primary)] text-xs font-bold uppercase bg-[var(--muted)]/10 px-4 py-2 rounded-full w-fit flex items-center gap-2"> <SiKnowledgebase size={15} /> Learn Smarter, Not Harder</h3>
                     <h1 className='text-[var(--secondary)] text-5xl font-bold'>Expert Tutors <br /> <span className='text-[var(--primary)]'>Better Results.</span></h1>
                     <p className="text-[var(--muted)] text-base">Connect with verified tutors who are passionate
                         about teaching and dedicated to your success.</p>
@@ -42,14 +42,14 @@ const SlideBanner2 = () => {
                     </div>
 
                     <div className="relative lg:absolute lg:-top-2 lg:-left-10 flex flex-col items-center lg:items-start">
-                        <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start bg-[var(--surface-alt)] shadow-lg rounded-lg p-4 mt-6 lg:mt-0 mb-6">
+                        <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start bg-[var(--surface)] shadow-lg rounded-lg p-4 mt-4 lg:mt-0 mb-2">
                             <div className="bg-[var(--primary)]/30 text-[var(--secondary)] p-2 rounded-full"><HiUsers size={24} /></div>
                             <div>
                                 <h3 className="text-lg font-bold"> 10,000+</h3>
                                 <p className='text-sm font-bold'>Happy Students</p>
                             </div>
                         </div>
-                        <div className="w-fit flex items-center gap-4 justify-center lg:justify-start bg-[var(--surface-alt)] shadow-lg rounded-lg p-4 mt-6 lg:mt-0">
+                        <div className="w-fit flex items-center gap-4 justify-center lg:justify-start bg-[var(--surface)] shadow-lg rounded-lg p-4 mt-6 lg:mt-0">
                             <div className="bg-[var(--primary)]/30 text-[var(--secondary)] p-2 rounded-full"><FaStar size={24} /></div>
                             <div>
                                 <h3 className="text-lg font-bold"> 4.9/5</h3>

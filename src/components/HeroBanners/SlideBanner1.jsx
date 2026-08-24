@@ -7,9 +7,9 @@ import HeroBannerImage from '@/assets/Slider-1-Img.png';
 const SlideBanner1 = () => {
     return (
         <div className='bg-[var(--surface-alt)]'>
-            <div className='max-w-6xl mx-auto py-20 px-6 lg: max-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
+            <div className='max-w-6xl mx-auto py-10 px-6 lg: min-h-screen flex flex-col lg:flex-row items-center justify-between gap-10'>
                 <div className="space-y-4">
-                    <h3 className="text-[var(--primary)] text-lg">LEARN AT THE RIGHT TIME</h3>
+                    <h3 className="text-[var(--primary)] text-base">LEARN AT THE RIGHT TIME</h3>
                     <h1 className='text-[var(--secondary)] text-5xl font-bold'>Find the right tutor <br /> for the way <span className='text-[var(--primary)]'>you learn.</span></h1>
                     <p className="text-[var(--muted)] text-base">Browse expert tutors by subject, availability,
                         location and teaching mode. Book sessions
