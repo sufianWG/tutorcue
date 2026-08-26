@@ -51,10 +51,10 @@ const SlideBanner1 = () => {
                     </div>
                 </div>
                 <div className="lg:mb-0 relative">
-                    <div className="aspect-[3/2] w-[300px] lg:w-[500px] max-w-[500px] relative mx-auto lg:">
+                    <div className="aspect-[3/2] w-[300px] lg:w-[500px] max-w-[500px] relative mx-auto lg:mx-0">
                         <Image src={HeroBannerImage} alt="Hero Banner Image" fill className="object-contain" />
                     </div>
-                    <div className="static md:absolute md:-top-10 lg:-top-10 md:-left-20 lg:right-0 lg:w-fit flex flex-col items-center md:items-start bg-[var(--surface)] shadow-lg p-4 rounded-md mx-4 lg: space-y-1">
+                    <div className="static md:absolute md:-top-10 lg:-top-10 md:-left-20 lg:right-0 lg:w-fit flex flex-col items-center md:items-start bg-[var(--surface)] shadow-lg p-4 rounded-md mx-4 lg:mx-0 space-y-1">
                         <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg px-4">
                             <div className='space-y-1'>
                                 <h3 className="text-sm font-bold flex items-center gap-2"> <IoCalculatorOutline size={25} />  Mathmatics</h3>
@@ -83,7 +83,7 @@ const SlideBanner1 = () => {
                         <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg md:p-2 lg:p-4 ">
                             <div className="text-[var(--secondary)] p-2"><LuCalendarRange size={24} /></div>
                             <div>
-                                <h3 className="text-sm font-bold text[var(--secondary)]"> Today, 7:30 PM</h3>
+                                <h3 className="text-sm font-bold text-[var(--secondary)]"> Today, 7:30 PM</h3>
                                 <hr className='text-[var(--muted)] my-1' />
                                 <p className='text-xs text-[var(--muted)]'>Online - 1 hr</p>
                             </div>

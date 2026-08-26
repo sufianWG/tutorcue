@@ -44,8 +44,6 @@ const ExploreBySubject = () => {
                                 </div>
                             })
                         }
-
-
                     </div>
                 </div>
             </div>
