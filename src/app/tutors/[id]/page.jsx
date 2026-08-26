@@ -1,6 +1,6 @@
-import React from 'react';
-
-const tutorDetailPage = () => {
+const tutorDetailPage = async({params}) => {
+    const {id} = await params;
+    console.log(id);
     return (
         <div>
             This tutor detail page.
