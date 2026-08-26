@@ -30,19 +30,20 @@ const NavBar = () => {
     const isDark = resolvedTheme == "dark"
 
     return (
-        <div className="w-full bg-[var(--surface)] text-[var(--secondary)] shadow-md">
-            <nav className="container mx-auto py-4 px-6 flex items-center justify-between gap-3">
+        <div className="relative w-full bg-[var(--surface)] text-[var(--secondary)] shadow-md z-50 sticky top-0 backdrop-blur-md">
+            <nav className="relative container mx-auto py-4 px-6 flex items-center justify-between gap-3">
                 <div className="logo">
                     <Image src={isDark ? LightLogo : Logo} alt="Logo" width={100} height={50}></Image>
                 </div>
-                <div className={`navitems flex flex-col lg:flex-row gap-3 md:gap-6 items-center bg-[var(--surface)] lg: absolute lg:static ${open ? "justify-start items-start top-19 right-0 lg: p-3 lg: h-full lg: shadow-lg transition-all duration-300 ease-in-out" : "right-[-500px]"} md:block`}>
+                <div className={`z-[60] navitems absolute left-1/2 top-full w-screen -translate-x-1/2 flex flex-col items-start gap-3 bg-[var(--surface)] px-6 py-4 shadow-lg transition-all duration-300 ease-in-out lg:static lg:w-auto lg:translate-x-0 lg:flex-row lg:items-center lg:gap-6 lg:bg-transparent lg:p-0 lg:shadow-none ${open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0 lg:visible lg:translate-y-0 lg:opacity-100"}`}>
                     {navItems.map((navItem, ind) => (
                         <NavLink key={ind} href={navItem.path} className=" lg:mx-4 text-[var(--secondary)] hover:text-[var(--primary)]" setOpen={setOpen}>
                             {navItem.label}
                         </NavLink>
                     ))}
                 </div>
-                <div className='rightitems flex gap-3 md:gap-6 items-center'>
+                <div className='rightitems flex gap-3 text-lg:gap-6 items-center'>
+                    <div className='hidden md:block lg:hidden min-w-100'></div>
                     <ThemeSwitcher></ThemeSwitcher>
                     <Avatar size="(max-width: 768px) sm, md">
                         <Avatar.Image
@@ -55,8 +56,8 @@ const NavBar = () => {
                         <RxAvatar size={30} />
                     </Avatar>
                 </div>
-                <div className="md:hidden">
-                    <button className="md:hidden" onClick={() => setOpen(!open)}>
+                <div className="lg:hidden">
+                    <button className="lg:hidden" onClick={() => setOpen(!open)}>
                         {open ? (
                             <FaXmark size={24} />
                         ) : (
