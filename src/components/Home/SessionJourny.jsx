@@ -34,16 +34,16 @@ const SessionJourny = () => {
             title: "Receive your token",
             description:
                 "Get your session token and join your session seamlessly.",
-            icon: <IoTicketOutline size={30} className="text-[var(--secondary)]" />,
+            icon: <IoTicketOutline size={30} className="text-tc-secondary" />,
         },
     ];
     return (
-        <div className="bg-[var(--surface-alt)]">
+        <div className="bg-tc-surface-alt">
             <div className="container mx-auto block md:flex px-3 sm:px-4 md:px-0 md:gap-3 items-center py-5">
                 <div className="leftSide flex-2.5 space-y-4 py-4">
                     <HeadingTopBorder></HeadingTopBorder>
-                    <h2 className='text-3xl text-[var(--heading)] font-bold text-center md:text-left'>Your Session Journey</h2>
-                    <h4 className='text-base text-[var(--muted)] text-center md:text-left'>From discovery to your personalized learning session</h4>
+                    <h2 className='text-3xl text-tc-heading font-bold text-center md:text-left'>Your Session Journey</h2>
+                    <h4 className='text-base text-tc-muted text-center md:text-left'>From discovery to your personalized learning session</h4>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-3">
                         {
                             steps.map((step, ind) => {
@@ -51,18 +51,18 @@ const SessionJourny = () => {
                                 return <div key={step.id} className="relative">
                                     <div className="relative">
                                         <div className="relative flex items-center justify-center md:justify-start">
-                                            <div className="relative z-10 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-[var(--primary)]/20">
+                                            <div className="relative z-10 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-tc-primary/20">
                                                 {Icon}
                                             </div>
                                             {
                                                 ind !== steps.length - 1 && (
-                                                    <div className="hidden md:block absolute left-22 right-4 top-1/2 -translate-y-1/2 border-t-2 border-dashed border-[var(--muted)]"></div>
+                                                    <div className="hidden md:block absolute left-22 right-4 top-1/2 -translate-y-1/2 border-t-2 border-dashed border-tc-muted"></div>
                                                 )
                                             }
                                         </div>
                                         <div className="mt-6 max-w-55 space-y-2 mx-auto md:mx-0 text-center md:text-left">
-                                            <h3 className="font-semibold text-lg text-[var(--heading)]">{step.id}. {step.title}</h3>
-                                            <p className="text-[var(--muted)] leading-6 mt-3 text-sm">{step.description}</p>
+                                            <h3 className="font-semibold text-lg text-tc-heading">{step.id}. {step.title}</h3>
+                                            <p className="text-tc-muted leading-6 mt-3 text-sm">{step.description}</p>
                                         </div>
                                     </div>
                                 </div>

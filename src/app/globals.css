@@ -69,3 +69,32 @@
   --error-bg: #3b1717;
   --transparent: transparent;
 }
+
+@theme inline {
+  --color-tc-primary: var(--primary);
+  --color-tc-primary-hover: var(--primary-hover);
+
+  --color-tc-secondary: var(--secondary);
+  --color-tc-accent: var(--accent);
+
+  --color-tc-background: var(--background);
+
+  --color-tc-surface: var(--surface);
+  --color-tc-surface-alt: var(--surface-alt);
+  --color-tc-surface-elevated: var(--surface-elevated);
+
+  --color-tc-heading: var(--heading);
+  --color-tc-text: var(--text);
+  --color-tc-muted: var(--muted);
+
+  --color-tc-border: var(--border);
+
+  --color-tc-success: var(--success);
+  --color-tc-success-bg: var(--success-bg);
+
+  --color-tc-warning: var(--warning);
+  --color-tc-warning-bg: var(--warning-bg);
+
+  --color-tc-error: var(--error);
+  --color-tc-error-bg: var(--error-bg);
+}

@@ -21,23 +21,23 @@ const ExploreBySubject = () => {
         { id: 6, name: "Biology", total: 150, sublink: "/", icon: <BiLeaf size={25} /> },
     ]
     return (
-        <div className='bg-[var(--surface)]'>
+        <div className='bg-tc-surface'>
             <div className='container mx-auto px-4 py-8 flex flex-col md:flex-row md:gap-5 gap-3 md:gap-10 lg:gap-15 md:justify-between items-center'>
                 <div className='leftSide space-y-6 md:flex-1'>
                     <HeadingTopBorder></HeadingTopBorder>
-                    <h2 className='text-3xl text-[var(--heading)] font-bold'>Explore by Subject</h2>
-                    <p className='text-base text-[var(--muted)]'>Find the perfect tutor for your subject.
+                    <h2 className='text-3xl text-tc-heading font-bold'>Explore by Subject</h2>
+                    <p className='text-base text-tc-muted'>Find the perfect tutor for your subject.
                         Quality guidance for every learner.</p>
-                    <Link href={"/tutors"} className='text-base text-[var(--success)] flex items-center gap-2 font-bold'>Browse all subjects <FaArrowRight size={15}></FaArrowRight> </Link>
+                    <Link href={"/tutors"} className='text-base text-tc-success flex items-center gap-2 font-bold'>Browse all subjects <FaArrowRight size={15}></FaArrowRight> </Link>
                 </div>
                 <div className='rightSide md:flex-2'>
-                    <div className='border-2 border-[var(--border)]/70 rounded-md'>
+                    <div className='border-2 border-tc-border/70 rounded-md'>
                         {
                             subjects.map((sub) => {
                                 return <div key={sub.id}>
-                                    <div className='flex gap-3 items-center justify-between p-4 border-b-2 border-[var(--border)]/70'>
-                                        <div className='text-[var(--secondary)] flex items-center gap-5'> {sub.icon}  <span className='text-lg font-bold'>{sub.name}</span></div>
-                                        <div className='text-[var(--muted)] flex items-center gap-2'>
+                                    <div className='flex gap-3 items-center justify-between p-4 border-b-2 border-tc-border/70'>
+                                        <div className='text-tc-secondary flex items-center gap-5'> {sub.icon}  <span className='text-lg font-bold'>{sub.name}</span></div>
+                                        <div className='text-tc-muted flex items-center gap-2'>
                                             <Link href={sub.sublink} className='flex items-center gap-5'><span>{sub.total}+ Tutors</span> <FaArrowRightLong /></Link>
                                         </div>
                                     </div>

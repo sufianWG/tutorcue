@@ -9,7 +9,7 @@ const NavLink = ({href, children, className, setOpen}) => {
     const isActive = currentPath === href;
     
     return (
-        <Link href={href} className={`${isActive ? "text-base font-bold text-[var(--secondary)] border-b-3 border-[var(--secondary)] transition-colors duration-500 ease-in-out": className}` } onClick={()=> setOpen(false)}>
+        <Link href={href} className={`${isActive ? "text-base font-bold text-tc-secondary border-b-3 border-tc-secondary transition-colors duration-500 ease-in-out": className}` } onClick={()=> setOpen(false)}>
          {children}
         </Link>
     );
