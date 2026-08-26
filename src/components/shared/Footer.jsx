@@ -17,7 +17,7 @@ const Footer = () => {
     return (
         <div className="bg-[var(--surface)] text-[var(--secondary)] shadow-md">
             <footer className="container mx-auto py-8 px-6 flex flex-col items-center justify-between gap-3">
-                <div className="footerContent text-[var(--secondary)]/70 flex flex-col lg:grid lg:grid-cols-7 gap-6 md:gap-12 lg:gap-24">
+                <div className="footerContent text-[var(--secondary)]/70 flex flex-col md:grid md:grid-cols-3 lg:grid-cols-7 gap-6 md:gap-12 lg:gap-24">
                     <div className="logo lg:col-span-2">
                         <Image src={isDark ? LightLogo : Logo} alt="Logo" width={150} height={75}></Image>
                         <p className="text-wrap">TutorCue connects learners with
