@@ -1,3 +1,4 @@
+import Pagination from "@/components/Pagination";
 import TutorCard from "@/components/TutorCard";
 import TutorSearchFilter from "@/components/TutorSearchFilter";
 import { allTutors, paginationData } from "@/lib/api";
@@ -38,6 +39,9 @@ const tutorsPage = async ({ searchParams }) => {
                                 })
                             }
                         </div>}
+                </div>
+                <div className="py-5 mx-auto my-10">
+                    <Pagination pagiData={pagiData}></Pagination>
                 </div>
             </div>
         </div>

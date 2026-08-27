@@ -5,6 +5,10 @@
   --swiper-navigation-size: 28px;
   --swiper-navigation-color: var(--primary);
 }
+.pagination-slider{
+  --swiper-navigation-size: 28px;
+  --swiper-navigation-color: var(--primary);
+}
 
 @media (min-width: 1024px){
   .hero-slider{
@@ -97,4 +101,5 @@
 
   --color-tc-error: var(--error);
   --color-tc-error-bg: var(--error-bg);
+  --color-tc-transparent: var(--transparent);
 }
