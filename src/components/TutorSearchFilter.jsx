@@ -13,9 +13,9 @@ const TutorSearchFilter = () => {
     const updateQuery = (queryName, value) => {
         const params = new URLSearchParams(searchParams.toString());
         // console.log(params);
-        if(queryName){
+        if (queryName) {
             params.set(queryName, value)
-        }else{
+        } else {
             params.delete(queryName)
         }
         router.push(`${pathname}?${params.toString()}`)
@@ -51,7 +51,7 @@ const TutorSearchFilter = () => {
                     </SearchField>
                 </div>
                 <div>
-                    <Select className="w-full max-w-[256px]" placeholder="Select one" onChange={handleSubject}>
+                    <Select className="w-full md:w-[220px] max-w-[256px]" placeholder="Select one" onChange={handleSubject}>
                         <Label className='text-base text-tc-secondary'>Subject</Label>
                         <Select.Trigger className={"rounded-md"}>
                             <Select.Value />
@@ -59,6 +59,10 @@ const TutorSearchFilter = () => {
                         </Select.Trigger>
                         <Select.Popover className={"rounded-md"}>
                             <ListBox>
+                                <ListBox.Item key={"all"} id="" textValue="All">
+                                    All Subjects
+                                    <ListBox.ItemIndicator />
+                                </ListBox.Item>
                                 <ListBox.Item id="economics" textValue="Economics">
                                     Economics
                                     <ListBox.ItemIndicator />
@@ -124,7 +128,7 @@ const TutorSearchFilter = () => {
                     </Select>
                 </div>
                 <div>
-                    <Select className="w-full max-w-[256px]" placeholder="Select one" onChange={handleTeachingMode}>
+                    <Select className="w-full md:w-[220px] max-w-[256px]" placeholder="Select one" onChange={handleTeachingMode}>
                         <Label className='text-base text-tc-secondary'>Teaching Mode</Label>
                         <Select.Trigger className={"rounded-md"}>
                             <Select.Value />
@@ -132,6 +136,10 @@ const TutorSearchFilter = () => {
                         </Select.Trigger>
                         <Select.Popover className={"rounded-md"}>
                             <ListBox>
+                                <ListBox.Item key={"all"} id="" textValue="All">
+                                    All Modes
+                                    <ListBox.ItemIndicator />
+                                </ListBox.Item>
                                 <ListBox.Item key={"online"} id="online" textValue="Online">
                                     Online
                                     <ListBox.ItemIndicator />
