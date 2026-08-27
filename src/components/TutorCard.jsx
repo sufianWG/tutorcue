@@ -16,7 +16,7 @@ const TutorCard = ({ tutor }) => {
         router.push(`/tutors/${_id}`)
     }
     return (
-        <Card className='p-3 md:p-4 lg:p-5 rounded-md shadow'>
+        <Card className='p-3 md:p-4 lg:p-5 rounded-md shadow h-full flex flex-col justify-between bg-tc-background/50'>
             <CardHeader>
                 <div className='flex gap-1 md:gap-2'>
                     <div className='flex-1'>
@@ -40,7 +40,7 @@ const TutorCard = ({ tutor }) => {
             <CardContent>
                 <div className='border-b-1 border-t-1 py-2'>
                     <h3 className='text-base text-tc-secondary'>Availability</h3>
-                    <div className='flex gap-1 text-base font-bold text-tc-success'>
+                    <div className='flex gap-1 text-base font-bold text-tc-success flex-wrap'>
                         {
                             availableDays.map((avDay, ind) => <h4 key={ind} className='flex gap-1'>{avDay}, </h4>)
                         }
