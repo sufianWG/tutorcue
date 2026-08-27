@@ -8,6 +8,12 @@ export const allTutors = async (searchparams) => {
     return data.tutors
 }
 
+export const tutorsWsP = async() => {
+    const res = await fetch(`${process.env.SERVER_URL}/tutors`);
+    const data = await res.json();
+    return data.tutors
+}
+
 export const paginationData = async () => {
     const res = await fetch(`${process.env.SERVER_URL}/tutors`);
     const data = await res.json();

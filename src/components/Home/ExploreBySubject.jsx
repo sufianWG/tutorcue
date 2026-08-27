@@ -22,7 +22,7 @@ const ExploreBySubject = () => {
     ]
     return (
         <div className='bg-tc-surface'>
-            <div className='container mx-auto px-4 py-8 flex flex-col md:flex-row md:gap-5 gap-3 md:gap-10 lg:gap-15 md:justify-between items-center'>
+            <div className='container mx-auto px-3 md:px-0 py-8 flex flex-col md:flex-row md:gap-5 gap-3 md:gap-10 lg:gap-15 md:justify-between items-center'>
                 <div className='leftSide space-y-6 md:flex-1'>
                     <HeadingTopBorder></HeadingTopBorder>
                     <h2 className='text-3xl text-tc-heading font-bold'>Explore by Subject</h2>
