@@ -38,9 +38,9 @@ const Pagination = ({ pagiData }) => {
                 marginPagesDisplayed={1}
                 containerClassName="flex justify-center items-center gap-2"
                 pageLinkClassName="w-10 h-10 flex items-center justify-center rounded-md border-tc-border bg-tc-primary/50 text-sm font-semibold text-tc-secondary hover:border-tc-primary hover:bg-tc-secondary hover:text-tc-surface transition"
-                activeClassName="bg-tc-primary border-tc-secondary text-tc-text rounded-md"
-                previousClassName="w-10 h-10 flex items-center justify-center rounded-md border border-tc-border text-tc-primary hover:bg-tc-primary hover:text-tc-primary-hover transition"
-                nextClassName="w-10 h-10 flex items-center justify-center rounded-md border border-tc-border text-tc-primary hover:bg-tc-primary hover:text-tc-primary-hover transition"
+                activeClassName="bg-tc-primary border-tc-secondary text-tc-surface rounded-md"
+                previousClassName="w-10 h-10 flex items-center justify-center rounded-md border border-tc-border text-tc-primary hover:bg-tc-primary hover:text-tc-surface transition"
+                nextClassName="w-10 h-10 flex items-center justify-center rounded-md border border-tc-border text-tc-primary hover:bg-tc-primary hover:text-tc-surface transition"
                 disabledLinkClassName="opacity-40 pointer-events-none"
                 breakLinkClassName="w-10 h-10 flex items-center justify-center text-tc-muted"
             >
