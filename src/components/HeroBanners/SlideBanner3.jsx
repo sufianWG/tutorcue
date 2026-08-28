@@ -30,7 +30,6 @@ const SlideBanner3 = () => {
                     <div className="aspect-[3/2] w-[300px] lg:w-[500px] max-w-[500px] relative mx-auto lg:">
                         <Image src={HeroBannerImage3} alt="Hero Banner Image" fill className="object-contain" />
                     </div>
-
                     <div className="static md:absolute md:-top-20 lg:-top-20 md:-left-30 lg:right-0 lg:w-fit flex flex-col items-center md:items-start bg-tc-surface shadow-lg p-4 rounded-md mx-4 lg:">
                         <h3 className='font-bold text-xs'>Upcoming Session</h3>
                         <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg p-4 ">

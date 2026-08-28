@@ -2,40 +2,58 @@
 
 import { Avatar, Button } from '@heroui/react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlay, FaArrowRight, FaRegCalendarAlt, FaUser, FaCircle } from "react-icons/fa";
 import HeroBannerImage from '@/assets/Slider-1-Img.png';
 import { IoCalculatorOutline } from 'react-icons/io5';
 import { LuCalendarRange } from 'react-icons/lu';
+import { tutorsWsP } from '@/lib/api';
+import { useRouter } from 'next/navigation';
 
 const SlideBanner1 = () => {
-    const tutors = [
-        {
-            id: 1,
-            image: "https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png",
-            name: "John Doe",
-        },
-        {
-            id: 2,
-            image: "https://cdn-icons-png.flaticon.com/256/149/149071.png",
-            name: "Kate Wilson",
-        },
-        {
-            id: 3,
-            image: "https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png",
-            name: "Emily Chen",
-        },
-        {
-            id: 4,
-            image: "https://cdn-icons-png.flaticon.com/256/149/149071.png",
-            name: "Michael Brown",
-        },
-        {
-            id: 5,
-            image: "https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png",
-            name: "Olivia Davis",
-        },
-    ];
+    const [tutors, setTutors] = useState([])
+    const [pagination, setPagination] = useState({})
+    // console.log("tutors", tutors);
+    const router = useRouter()
+    useEffect(() => {
+        const fetchTutors = async () => {
+            try {
+                const res = await fetch("https://tutorcue-server.vercel.app/tutors");
+                const data = await res.json();
+                // console.log("tutorsDataFromFunction", data.tutors);
+                if (!res.ok) {
+                    throw new Error("Failed to fetch tutor data")
+                }
+                setTutors(data.tutors)
+            } catch (error) {
+                console.error("Error fetching tutors:", error);
+            }
+        }
+        fetchTutors()
+    }, [])
+    useEffect(() => {
+        const fetchPagiData = async () => {
+            try {
+                const res = await fetch("https://tutorcue-server.vercel.app/tutors");
+                const data = await res.json();
+                // console.log("paginatinoDataFromFunction", data.pagination);
+                if (!res.ok) {
+                    throw new Error("Failed to fetch pagination data")
+                }
+                setPagination(data.pagination)
+            } catch (error) {
+                console.error("Error fetching pagination:", error);
+            }
+        }
+        fetchPagiData()
+    }, [])
+
+    const handleExploreBtn = () => {
+        router.push("/tutors")
+    }
+    const handleHitWorkBtn = () => {
+        router.push("/")
+    }
     return (
         <div className='bg-tc-surface-alt'>
             <div className='max-w-6xl mx-auto pt-15 px-8 md:px-12 lg:px-14 lg:min-h-screen flex flex-col md:flex-row items-center justify-start lg:justify-between gap-10'>
@@ -46,8 +64,8 @@ const SlideBanner1 = () => {
                         location and teaching mode. Book sessions
                         that fit your goals and your schedule.</p>
                     <div className="flex gap-4">
-                        <Button className={"rounded-md bg-tc-primary text-tc-surface hover:bg-tc-primary-hover px-2 py-1"}>Explore Tutors <FaArrowRight /> </Button>
-                        <Button className={"rounded-md bg-tc-transparent text-tc-secondary hover:bg-tc-primary hover:text-tc-surface px-2 py-1 border-tc-secondary hover:border-tc-primary border-2"}>How it works <FaPlay /></Button>
+                        <Button className={"rounded-md bg-tc-primary text-tc-surface hover:bg-tc-primary-hover px-2 py-1"} onClick={handleExploreBtn}>Explore Tutors <FaArrowRight /> </Button>
+                        <Button className={"rounded-md bg-tc-transparent text-tc-secondary hover:bg-tc-primary hover:text-tc-surface px-2 py-1 border-tc-secondary hover:border-tc-primary border-2"} onClick={handleHitWorkBtn}>How it works <FaPlay /></Button>
                     </div>
                 </div>
                 <div className="lg:mb-0 relative">
@@ -58,15 +76,15 @@ const SlideBanner1 = () => {
                         <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg px-4">
                             <div className='space-y-1'>
                                 <h3 className="text-sm font-bold flex items-center gap-2"> <IoCalculatorOutline size={25} />  Mathmatics</h3>
-                                <p className='text-xs text-tc-muted'>120+ Tutors</p>
+                                <p className='text-xs text-tc-muted'><span>{pagination.totalTutors}</span>+ Tutors</p>
                             </div>
                         </div>
                         <div className="flex -space-x-2">
                             {tutors.slice(0, 3).map((tutor) => (
-                                <Avatar key={tutor.id} className="ring-2 ring-background">
-                                    <Avatar.Image alt={tutor.name} src={tutor.image} />
+                                <Avatar key={tutor._id} className="ring-2 ring-background">
+                                    <Avatar.Image alt={tutor.tutorName} src={tutor.photo} />
                                     <Avatar.Fallback>
-                                        {tutor.name
+                                        {tutor.tutorName
                                             .split(" ")
                                             .map((n) => n[0])
                                             .join("")}
@@ -74,7 +92,7 @@ const SlideBanner1 = () => {
                                 </Avatar>
                             ))}
                             <Avatar className="ring-2 ring-background">
-                                <Avatar.Fallback className="text-xs">+{tutors.length - 3}</Avatar.Fallback>
+                                <Avatar.Fallback className="text-xs">+{pagination.totalTutors - 3}</Avatar.Fallback>
                             </Avatar>
                         </div>
                     </div>

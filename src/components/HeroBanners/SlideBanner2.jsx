@@ -10,14 +10,22 @@ import { SiKnowledgebase } from 'react-icons/si';
 import { FaGraduationCap, FaStar, FaUser } from 'react-icons/fa6';
 import { MdOutlineBarChart } from 'react-icons/md';
 import { HiUsers } from 'react-icons/hi';
+import { useRouter } from 'next/navigation';
 const SlideBanner2 = () => {
+    const router = useRouter()
     const { resolvedTheme } = useTheme();
 
     if (!resolvedTheme) {
         return null;
     }
-
     const isDark = resolvedTheme == "dark"
+
+    const handleFindTutorBtn = () => {
+        router.push("/tutors")
+    }
+    const handleLearnMoreBtn = () => {
+        router.push("/")
+    }
     return (
         <div className='bg-tc-surface-alt'>
             <div className='max-w-6xl mx-auto py-10 lg:py-15 px-8 md:px-12 lg:px-14 lg:min-h-screen flex flex-col md:flex-row items-center justify-start md:justify-between gap-10'>
@@ -32,15 +40,14 @@ const SlideBanner2 = () => {
                         <div className="flex items-center gap-2"> <span className="bg-tc-primary/30 text-tc-secondary p-2 rounded-full"> <MdOutlineBarChart size={18} /> </span> Better Grades Guaranteed </div>
                     </div>
                     <div className="flex gap-4">
-                        <Button className={"rounded-md bg-tc-primary text-tc-surface hover:bg-tc-primary-hover px-2 py-1"}>Find Your Tutor <FaArrowRight /> </Button>
-                        <Button className={"rounded-md bg-tc-transparent text-tc-secondary hover:bg-tc-primary hover:text-tc-surface px-2 py-1 border-tc-secondary hover:border-tc-primary border-2"}>Learn More <FaPlay /></Button>
+                        <Button className={"rounded-md bg-tc-primary text-tc-surface hover:bg-tc-primary-hover px-2 py-1"} onClick={handleFindTutorBtn}>Find Your Tutor <FaArrowRight /> </Button>
+                        <Button className={"rounded-md bg-tc-transparent text-tc-secondary hover:bg-tc-primary hover:text-tc-surface px-2 py-1 border-tc-secondary hover:border-tc-primary border-2"} onClick={handleLearnMoreBtn}>Learn More <FaPlay /></Button>
                     </div>
                 </div>
                 <div className="lg:mb-0 relative">
                     <div className="aspect-[3/2] w-[300px] lg:w-[500px] max-w-[500px] relative mx-auto lg:">
                         <Image src={isDark ? HeroBannerImage2Light : HeroBannerImage2} alt="Hero Banner Image" fill className="object-contain" />
                     </div>
-
                     <div className="relative md:absolute md:-top-20 lg:-top-2 md:-left-35 flex md:-left-10 flex-col items-center md:items-start">
                         <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start bg-tc-surface shadow-lg rounded-lg p-4 mt-4 md:mt-0 mb-0 lg:mb-2">
                             <div className="bg-tc-primary/30 text-tc-secondary p-2 rounded-full"><HiUsers size={24} /></div>
