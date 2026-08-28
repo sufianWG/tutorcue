@@ -1,4 +1,5 @@
 "use client"
+import { convertTo12Hour } from '@/lib/formatTime';
 import { Button, Card, CardContent, CardFooter, CardHeader, Chip } from '@heroui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -45,7 +46,7 @@ const TutorCard = ({ tutor }) => {
                             availableDays.map((avDay, ind) => <h4 key={ind} className='flex gap-1'>{avDay}, </h4>)
                         }
                     </div>
-                    <h4>{availableTimeSlot.start} - {availableTimeSlot.end}</h4>
+                    <h4>  { convertTo12Hour(availableTimeSlot.start)} - { convertTo12Hour(availableTimeSlot.end)}</h4>
                 </div>
             </CardContent>
             <CardFooter>
