@@ -8,6 +8,11 @@ export const allTutors = async (searchparams) => {
     return data.tutors
 }
 
+export const tutorsDetail = async(id) => {
+    const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors/${id}`);
+    const data = await res.json();
+    return data
+}
 export const tutorsWsP = async() => {
     const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors`);
     const data = await res.json();
