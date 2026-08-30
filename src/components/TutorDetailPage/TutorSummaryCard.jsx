@@ -18,7 +18,7 @@ const TutorSummaryCard = ({ tutor }) => {
             <Card className='p-0 rounded-lg shadow h-full flex flex-col justify-between bg-tc-surface/70'>
                 <CardHeader>
                     <div className='flex flex-col md:flex-row gap-2 md:gap-5 lg:gap-10 items-center p-3 md:p-0'>
-                        <div className='flex-1.5  relative h-full w-full max-w-300 aspect-1.5/3 lg:aspect-2/3'>
+                        <div className='flex-1.5 lg:flex-2 relative h-full w-full max-w-300 aspect-1.5/3 lg:aspect-2/3'>
                             <Image src={photo} fill className='object-cover rounded-lg md:rounded-l-lg' alt={tutorName} placeholder="blur" blurDataURL={blurUrl}>
                             </Image>
                             <div className="absolute left-0 bottom-0 bg-tc-primary/50 rounded-tr-lg rounded-bl-lg">
@@ -29,7 +29,7 @@ const TutorSummaryCard = ({ tutor }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='px-3 md:px-4 py-3 md:py-0 space-y-2 flex-1'>
+                        <div className='px-3 md:px-4 py-3 md:py-0 space-y-2 flex-1 lg:flex-2'>
                             <div className='flex gap-1 md:gap-2 lg:gap-3'>
                                 <Chip className={`rounded-md ${teachingMode == "Online" ? 'bg-tc-success/40' : teachingMode == "Offline" ? 'bg-tc-accent/40' : 'bg-tc-secondary/40'
                                     }`}>{teachingMode}</Chip>
