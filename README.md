@@ -8,7 +8,7 @@ The project is being built with **Next.js** on the frontend and **Express.js + M
 
 - Frontend Repository: [https://github.com/sufianWG/tutorcue](https://github.com/sufianWG/tutorcue)
 - Backend Repository: [https://github.com/sufianWG/tutorcue-server](https://github.com/sufianWG/tutorcue-server)
-- Backend API: [https://tutorcue-server.vercel.app](https://tutorcue-server.vercel.app)
+- Live Link: [https://tutorcue.vercel.app/]
 
 ## Current Features
 
