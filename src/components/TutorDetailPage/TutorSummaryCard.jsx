@@ -19,7 +19,7 @@ const TutorSummaryCard = ({ tutor }) => {
                 <CardHeader>
                     <div className='flex flex-col md:flex-row gap-2 md:gap-5 lg:gap-10 items-center p-3 md:p-0'>
                         <div className='flex-1.5 lg:flex-2 relative h-full w-full max-w-300 aspect-1.5/3 lg:aspect-2/3'>
-                            <Image src={photo} fill className='object-cover rounded-lg md:rounded-l-lg' alt={tutorName} placeholder="blur" blurDataURL={blurUrl}>
+                            <Image src={photo} fill className='object-cover rounded-lg md:rounded-tr-none md:rounded-br-none md:rounded-tl-lg md:rounded-bl-lg' alt={tutorName} placeholder="blur" blurDataURL={blurUrl}>
                             </Image>
                             <div className="absolute left-0 bottom-0 bg-tc-primary/50 rounded-tr-lg rounded-bl-lg">
                                 <div className="flex gap-2 items-center p-1">
