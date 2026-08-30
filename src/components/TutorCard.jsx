@@ -1,6 +1,6 @@
 "use client"
 import { convertTo12Hour } from '@/lib/formatTime';
-import { Button, Card, CardContent, CardFooter, CardHeader, Chip } from '@heroui/react';
+import { Button, Card, CardContent, CardFooter, CardHeader, Chip, Separator } from '@heroui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { IoLocationOutline } from 'react-icons/io5';
@@ -38,8 +38,9 @@ const TutorCard = ({ tutor }) => {
                     </div>
                 </div>
             </CardHeader>
+            <Separator className="my-1" />
             <CardContent>
-                <div className='border-b-1 border-t-1 py-2'>
+                <div className='py-1'>
                     <h3 className='text-base text-tc-secondary'>Availability</h3>
                     <div className='flex gap-1 text-base font-bold text-tc-success flex-wrap'>
                         {
@@ -49,6 +50,7 @@ const TutorCard = ({ tutor }) => {
                     <h4>  { convertTo12Hour(availableTimeSlot.start)} - { convertTo12Hour(availableTimeSlot.end)}</h4>
                 </div>
             </CardContent>
+            <Separator className="my-1" />
             <CardFooter>
                 <div className='w-full mx-auto'>
                     <div className='flex justify-between gap-3 items-center'>

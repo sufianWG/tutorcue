@@ -10,7 +10,7 @@ const tutorDetailPage = async ({ params }) => {
     console.log("tutor", tutor);
     return (
         <div className="bg-tc-background">
-            <div className="container mx-auto py-6 md:py-10 px-3 md:px-4">
+            <div className="container mx-auto py-6 md:py-10 px-2 md:px-4">
                 <div className="flex gap-2 md:gap-3 flex-col md:flex-row">
                     <div className="flex-2/3 space-y-3">
                         <div> <TutorSummaryCard tutor={tutor}></TutorSummaryCard> </div>

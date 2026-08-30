@@ -38,12 +38,14 @@ export const weekDaysList = () => {
         const month = date.toLocaleDateString("en-US", {
             month: "short"
         })
+        const year = date.getFullYear()
         // console.log(month);
         weekDays.push({
             dayFull,
             day,
             dateNumber,
-            month
+            month,
+            year
         })
     }
     return weekDays
