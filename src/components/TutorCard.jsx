@@ -1,5 +1,5 @@
 "use client"
-import { convertTo12Hour } from '@/lib/formatTime';
+import { convertTo12Hour, generateTimeSlots } from '@/lib/formatTime';
 import { Button, Card, CardContent, CardFooter, CardHeader, Chip, Separator } from '@heroui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -16,6 +16,10 @@ const TutorCard = ({ tutor }) => {
     const handleBookNow = () => {
         router.push(`/tutors/${_id}`)
     }
+    const start = availableTimeSlot?.start
+    const end = availableTimeSlot?.end
+    const slots = generateTimeSlots(start, end)
+
     return (
         <Card className='p-3 md:p-4 lg:p-5 rounded-md shadow h-full flex flex-col justify-between bg-tc-background/50'>
             <CardHeader>
@@ -57,7 +61,7 @@ const TutorCard = ({ tutor }) => {
                         <div><span className='text-tc-secondary font-bold'>৳{hourlyFee}</span>
                             <span className='text-tc-muted'> /hr</span>
                         </div>
-                        <div className='text-tc-muted text-sm'>{totalSlot} slots left</div>
+                        <div className='text-tc-muted text-sm'>{slots.length} slots left</div>
                         <Button className={'bg-tc-primary text-tc-surface rounded-md px-3 py-2'} onClick={handleBookNow}>Book Now</Button>
                     </div>
                 </div>
