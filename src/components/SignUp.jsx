@@ -10,13 +10,13 @@ import { LuCalendarDays, LuMessageSquare, LuShieldCheck, LuUsers } from "react-i
 import { MdOutlineEmail } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import HeadingTopBorder from "./shared/HeadingTopBorder";
-import { FaRegUser, FaUserPlus } from "react-icons/fa";
+import { FaEye, FaRegUser, FaUserPlus } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import { IoIosLink } from "react-icons/io";
+import { IoIosLink, IoMdEyeOff } from "react-icons/io";
 import { CiLock } from "react-icons/ci";
 
 const SignUp = () => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [isVisible, setIsVisible] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const features = [
         {
@@ -40,6 +40,7 @@ const SignUp = () => {
             text: "Your data is safe with us. We use standard security practices."
         }
     ];
+
     const onSubmit = () => {
 
     }
@@ -135,11 +136,11 @@ const SignUp = () => {
                                 <FieldError />
                             </TextField>
                             <TextField
-                                name="email"
-                                type="email"
+                                name="photoUrl"
+                                type="url"
                                 validate={(value) => {
-                                    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                                        return "Please enter a valid email address";
+                                    if (!/^https?:\/\/.+\..+\/.+$/.test(value)) {
+                                        return "Please enter a valid photo URL";
                                     }
                                     return null;
                                 }}
@@ -173,7 +174,7 @@ const SignUp = () => {
                                 isRequired
                                 minLength={8}
                                 name="password"
-                                type="password"
+                                type={isVisible ? "text" : "password"}
                                 validate={(value) => {
                                     if (value.length < 8) {
                                         return "Password must be at least 8 characters";
@@ -191,6 +192,16 @@ const SignUp = () => {
                                 <div className="relative">
                                     <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-tc-muted pointer-events-none" />
                                     <Input placeholder="Create a password" className={"rounded-md border border-tc-muted/40 pl-11 py-2 w-full"} />
+                                    <Button
+                                        isIconOnly
+                                        aria-label={isVisible ? "Hide password" : "Show password"}
+                                        size="sm"
+                                        variant="ghost"
+                                        onPress={() => setIsVisible(!isVisible)}
+                                        className={'absolute right-2 -translate-y-1/2 top-1/2 '}
+                                    >
+                                        {isVisible ? <FaEye className="size-4" /> : <IoMdEyeOff className="size-4" />}
+                                    </Button>
                                 </div>
                                 <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
                                 <FieldError />
@@ -198,13 +209,23 @@ const SignUp = () => {
                             <TextField
                                 isRequired
                                 minLength={8}
-                                name="password"
-                                type="password"
+                                name="confirmpassword"
+                                type={showConfirmPassword ? "text" : "password"}
                             >
                                 <Label>Confirm Password</Label>
                                 <div className="relative">
                                     <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-tc-muted pointer-events-none" />
                                     <Input placeholder="Confirm your password" className={"rounded-md border border-tc-muted/40 pl-11 py-2 w-full"} />
+                                    <Button
+                                        isIconOnly
+                                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                                        size="sm"
+                                        variant="ghost"
+                                        onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className={'absolute right-2 -translate-y-1/2 top-1/2 '}
+                                    >
+                                        {showConfirmPassword ? <FaEye className="size-4" /> : <IoMdEyeOff className="size-4" />}
+                                    </Button>
                                 </div>
                                 <FieldError />
                             </TextField>
