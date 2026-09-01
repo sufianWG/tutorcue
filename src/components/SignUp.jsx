@@ -14,12 +14,15 @@ import { HiOutlineMail } from "react-icons/hi";
 import { IoIosLink, IoMdEyeOff } from "react-icons/io";
 import { CiLock } from "react-icons/ci";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [inputedPassword, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const router = useRouter()
     const features = [
         {
             icon: <LuUsers size={22} />,
@@ -56,8 +59,25 @@ const SignUp = () => {
             name,
             image: photoUrl,
         })
+        if(!error) {
+            await authClient.signOut();
+            router.push('/login')
+        } else {
+            toast("Registration Failed, Please try again")
+        }
+    }
+
+    const handleGoogleSignUp = async () => {
+        const { data, error } = await authClient.signIn.social({
+            provider: "google",
+        });
+
         if (!error) {
-            console.log("Sign up successful:", data);
+            console.log("Google Sign Up Successful:", data);
+            router.push('/tutors')
+        }else{
+            console.error("Google Sign Up Error:", error);
+            toast("Google Sign Up Failed, Please try again")
         }
     }
 
@@ -284,7 +304,7 @@ const SignUp = () => {
                                 <Separator className="w-full max-w-[50px] md:max-w-[100px]"></Separator>
                             </div>
                             <div>
-                                <Button className={"text-tc-secondary bg-transparent border-2 border-tc-muted/40 rounded-md py-2 px-3 flex justify-center items-center w-full font-bold hover:bg-tc-primary-hover hover:text-tc-surface"}>
+                                <Button onClick={handleGoogleSignUp} className={"text-tc-secondary bg-transparent border-2 border-tc-muted/40 rounded-md py-2 px-3 flex justify-center items-center w-full font-bold hover:bg-tc-primary-hover hover:text-tc-surface"}>
                                     <FcGoogle size={30} /> Continue with Google
                                 </Button>
                             </div>

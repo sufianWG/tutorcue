@@ -49,7 +49,7 @@ const Login = () => {
 
         console.log("email:", email, "password:", password);
         const { data, error } = await authClient.signIn.email({
-            email, 
+            email,
             password,
             callbackURL: "/",
             rememberMe: false
@@ -60,6 +60,19 @@ const Login = () => {
             console.log("Login successful:", data);
         }
     };
+
+    const handleGoogleSignIn = async () => {
+        const { data, error } = await authClient.signIn.social({
+            provider: "google",
+        });
+        if (!error) {
+            console.log("Google Sign Up Successful:", data);
+            router.push('/tutors')
+        } else {
+            console.error("Google Sign Up Error:", error);
+            toast("Google Sign Up Failed, Please try again")
+        }
+    }
 
     return (
         <main className="bg-tc-background">
@@ -195,7 +208,7 @@ const Login = () => {
                                 <Separator className="w-full max-w-[50px] md:max-w-[100px]"></Separator>
                             </div>
                             <div>
-                                <Button className={"text-tc-secondary bg-transparent border-2 border-tc-muted/40 rounded-md py-2 px-3 flex justify-center items-center w-full font-bold hover:bg-tc-primary-hover hover:text-tc-surface"}>
+                                <Button onClick={handleGoogleSignIn} className={"text-tc-secondary bg-transparent border-2 border-tc-muted/40 rounded-md py-2 px-3 flex justify-center items-center w-full font-bold hover:bg-tc-primary-hover hover:text-tc-surface"}>
                                     <FcGoogle size={30} /> Continue with Google
                                 </Button>
                             </div>

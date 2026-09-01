@@ -3,6 +3,7 @@ import "./globals.css";
 import ThemeProvider from "../components/shared/ThemeProvider";
 import NavBar from "@/components/shared/NavBar";
 import Footer from "@/components/shared/Footer";
+import { Bounce, ToastContainer } from "react-toastify";
 
 
 const ManropeFont = Manrope({
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <NavBar></NavBar>
           {children}
+           <ToastContainer position="top-right" transition={Bounce}/>
           <Footer></Footer>
         </ThemeProvider>
       </body>
