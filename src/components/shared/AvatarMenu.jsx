@@ -2,12 +2,9 @@
 import { Button } from "@heroui/react";
 import Link from "next/link";
 
-
-
 const AvatarMenu = ({ user, handleSignIn, handleSignOut }) => {
     // console.log("user", user);
 
-    
     return (
         <div className="absolute right-0 top-full z-[100] w-52  pt-2">
             <div className="overflow-hidden rounded-lg border border-tc-border bg-tc-surface p-2 shadow-lg">

@@ -4,6 +4,7 @@ import ThemeProvider from "../components/shared/ThemeProvider";
 import NavBar from "@/components/shared/NavBar";
 import Footer from "@/components/shared/Footer";
 
+
 const ManropeFont = Manrope({
   subsets: ["latin"],
 });
@@ -11,6 +12,10 @@ const ManropeFont = Manrope({
 export const metadata = {
   title: "TutorCue",
   description: "Quality guidance for every learner",
+
+  icons: {
+    icon: "/favicon.png",
+  }
 };
 
 export default function RootLayout({ children }) {
