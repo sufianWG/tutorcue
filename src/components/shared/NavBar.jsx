@@ -10,8 +10,28 @@ import NavLink from './NavLink';
 import { FaBars, FaXmark } from 'react-icons/fa6';
 import { Avatar } from '@heroui/react';
 import { RxAvatar } from 'react-icons/rx';
+import { authClient } from '@/lib/auth-client';
+import AvatarMenu from './AvatarMenu';
+import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
+    const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
+    const { data: session, isPending, error, refetch } = authClient.useSession();
+    const user = session?.user;
+    // console.log(user);
+    const router = useRouter();
+    const handleSignIn = () => {
+        router.push('/login');
+    }
+    const handleSignOut = async () => {
+        console.log("signOut Button Triggered, and user status:", user);
+        const { error } = await authClient.signOut();
+        if (!error) {
+            router.push('/login');
+        }
+    }
+
+
     const navItems = [
         { label: 'Home', path: '/' },
         { label: 'Tutors', path: '/tutors' },
@@ -23,7 +43,7 @@ const NavBar = () => {
     const [open, setOpen] = useState(false);
     const { resolvedTheme } = useTheme();
 
-    if (!resolvedTheme){
+    if (!resolvedTheme) {
         return null;
     }
 
@@ -45,16 +65,18 @@ const NavBar = () => {
                 <div className='rightitems flex gap-3 text-lg:gap-6 items-center'>
                     <div className='hidden md:block lg:hidden min-w-100'></div>
                     <ThemeSwitcher></ThemeSwitcher>
-                    <Avatar size="(max-width: 768px) sm, md">
-                        <Avatar.Image
-                            // src={user?.image}
-                            // alt={user?.name}
-                            
-                            referrerPolicy="no-referrer"
-                        />
-                        {/* <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback> */}
-                        <RxAvatar size={30} />
-                    </Avatar>
+                    <div className='relative' onMouseEnter={() => setAvatarMenuOpen(true)} onMouseLeave={() => setAvatarMenuOpen(false)}>
+                        <Avatar size="(max-width: 768px) sm, md">
+                            <Avatar.Image
+                                src={user?.image}
+                                alt={user?.name}
+                                referrerPolicy="no-referrer"
+                            />
+                            {user && <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>}
+                            {!user && <RxAvatar size={30} />}
+                        </Avatar>
+                        {avatarMenuOpen && <AvatarMenu user={user} handleSignIn={handleSignIn} handleSignOut={handleSignOut} />}
+                    </div>
                 </div>
                 <div className="lg:hidden">
                     <button className="lg:hidden" onClick={() => setOpen(!open)}>
