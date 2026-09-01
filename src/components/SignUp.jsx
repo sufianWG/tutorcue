@@ -5,19 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button, Checkbox, Description, FieldError, Form, Input, Label, Separator, TextField } from "@heroui/react";
 import authDesk from "@/assets/tutorcue-auth-desk.png";
-import { FiEye, FiEyeOff, FiLink2, FiLock, FiUser, FiUserPlus } from "react-icons/fi";
+import { FiUserPlus } from "react-icons/fi";
 import { LuCalendarDays, LuMessageSquare, LuShieldCheck, LuUsers } from "react-icons/lu";
-import { MdOutlineEmail } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import HeadingTopBorder from "./shared/HeadingTopBorder";
 import { FaEye, FaRegUser, FaUserPlus } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { IoIosLink, IoMdEyeOff } from "react-icons/io";
 import { CiLock } from "react-icons/ci";
+import { authClient } from "@/lib/auth-client";
 
 const SignUp = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [inputedPassword, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const features = [
         {
             icon: <LuUsers size={22} />,
@@ -40,10 +42,26 @@ const SignUp = () => {
             text: "Your data is safe with us. We use standard security practices."
         }
     ];
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const userData = Object.fromEntries(formData.entries());
+        const { email, password, name, photoUrl } = userData;
 
-    const onSubmit = () => {
+        console.log("email:", email, "password:", password, "name:", name, "image:", photoUrl);
 
+        const { data, error } = await authClient.signUp.email({
+            email,
+            password,
+            name,
+            image: photoUrl,
+        })
+        if (!error) {
+            console.log("Sign up successful:", data);
+        }
     }
+
+
     return (
         <main className="bg-tc-background">
             <div className="container mx-auto grid lg:min-h-[calc(100vh-72px)] lg:grid-cols-2">
@@ -114,16 +132,15 @@ const SignUp = () => {
                         </div>
                         <Form
                             className="flex w-full flex-col gap-4"
-                            render={(props) => <form {...props} data-custom="foo" />}
                             onSubmit={onSubmit}
                         >
                             <TextField
                                 isRequired
-                                name="email"
-                                type="email"
+                                name="name"
+                                type="text"
                                 validate={(value) => {
-                                    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                                        return "Please enter a valid email address";
+                                    if (!value.trim()) {
+                                        return "Please enter your full name";
                                     }
                                     return null;
                                 }}
@@ -139,6 +156,9 @@ const SignUp = () => {
                                 name="photoUrl"
                                 type="url"
                                 validate={(value) => {
+                                    if (!value.trim()) {
+                                        return null;
+                                    }
                                     if (!/^https?:\/\/.+\..+\/.+$/.test(value)) {
                                         return "Please enter a valid photo URL";
                                     }
@@ -187,11 +207,15 @@ const SignUp = () => {
                                     }
                                     return null;
                                 }}
+
                             >
                                 <Label>Password</Label>
                                 <div className="relative">
                                     <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-tc-muted pointer-events-none" />
-                                    <Input placeholder="Create a password" className={"rounded-md border border-tc-muted/40 pl-11 py-2 w-full"} />
+                                    <Input placeholder="Create a password" className={"rounded-md border border-tc-muted/40 pl-11 py-2 w-full"}
+                                        value={inputedPassword}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                     <Button
                                         isIconOnly
                                         aria-label={isVisible ? "Hide password" : "Show password"}
@@ -211,11 +235,23 @@ const SignUp = () => {
                                 minLength={8}
                                 name="confirmpassword"
                                 type={showConfirmPassword ? "text" : "password"}
+                                validate={(value) => {
+                                    if (value.length < 8) {
+                                        return "Password must be at least 8 characters";
+                                    }
+                                    if (value !== inputedPassword) {
+                                        return "Passwords do not match";
+                                    }
+                                }}
+
                             >
                                 <Label>Confirm Password</Label>
                                 <div className="relative">
                                     <CiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-tc-muted pointer-events-none" />
-                                    <Input placeholder="Confirm your password" className={"rounded-md border border-tc-muted/40 pl-11 py-2 w-full"} />
+                                    <Input placeholder="Confirm your password" className={"rounded-md border border-tc-muted/40 pl-11 py-2 w-full"}
+                                        value={confirmPassword}
+                                        onChange={(e) => { setConfirmPassword(e.target.value) }}
+                                    />
                                     <Button
                                         isIconOnly
                                         aria-label={showConfirmPassword ? "Hide password" : "Show password"}
@@ -229,7 +265,7 @@ const SignUp = () => {
                                 </div>
                                 <FieldError />
                             </TextField>
-                            <Checkbox isInvalid isRequired name="agreement">
+                            <Checkbox isRequired name="agreement">
                                 <Checkbox.Content>
                                     <Checkbox.Control className="rounded-sm border border-tc-muted/40 text-tc-primary focus: text-tc-primary">
                                         <Checkbox.Indicator />

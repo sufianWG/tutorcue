@@ -14,6 +14,7 @@ import { CiLock } from "react-icons/ci";
 import HeadingTopBorder from "./shared/HeadingTopBorder";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
+import { authClient } from "@/lib/auth-client";
 
 const Login = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -40,9 +41,25 @@ const Login = () => {
             text: "Your data is safe with us. We use standard security practices."
         }
     ];
-    const onSubmit = () => {
-        
-    }
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const userData = Object.fromEntries(formData.entries());
+        const { email, password } = userData;
+
+        console.log("email:", email, "password:", password);
+        const { data, error } = await authClient.signIn.email({
+            email, 
+            password,
+            callbackURL: "/",
+            rememberMe: false
+        })
+        if (error) {
+            console.error("Login failed:", error);
+        } else {
+            console.log("Login successful:", data);
+        }
+    };
 
     return (
         <main className="bg-tc-background">
@@ -183,7 +200,7 @@ const Login = () => {
                                 </Button>
                             </div>
                             <div className="text-base text-center">
-                                <span className="text-tc-secondary font-semibold">Don't you have an Account?</span> <Link href={"/signup"} className="text-tc-secondary font-semibold">Sign Up</Link>
+                                <span className="text-tc-secondary font-semibold"> Do not you have an Account?</span> <Link href={"/signup"} className="text-tc-secondary font-semibold">Sign Up</Link>
                             </div>
                         </Form>
                     </div>
