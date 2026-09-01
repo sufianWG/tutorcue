@@ -77,7 +77,7 @@ const Login = () => {
     return (
         <main className="bg-tc-background">
             <div className="container mx-auto grid lg:min-h-[calc(100vh-72px)] lg:grid-cols-2">
-                <section className="relative hidden overflow-hidden border-r border-tc-border px-2 lg:px-4 pt-16 lg:pb-[260px] xl:pb-[250px] lg:block xl:px-14 xl:py-20">
+                <section className="relative hidden overflow-hidden border-r border-tc-border px-2 lg:px-4 pt-16 lg:pb-[260px] xl:pb-[300px] lg:block xl:px-14 xl:py-20">
                     <div className="relative z-20 max-w-[470px]">
                         <p className="text-sm font-bold uppercase text-tc-primary mb-4">
                             Login to TutorCue
@@ -124,7 +124,7 @@ const Login = () => {
                         <Image
                             src={authDesk}
                             alt="TutorCue study desk"
-                            className="h-[270px] w-full object-cover object-bottom"
+                            className="w-full object-cover object-bottom"
                             priority
                         />
                     </div>
