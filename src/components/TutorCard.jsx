@@ -1,8 +1,11 @@
 "use client"
+import { tutorSlots } from '@/lib/api';
+import { authClient } from '@/lib/auth-client';
 import { convertTo12Hour, generateTimeSlots } from '@/lib/formatTime';
 import { Button, Card, CardContent, CardFooter, CardHeader, Chip, Separator } from '@heroui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
 import { PiSuitcaseSimpleLight } from 'react-icons/pi';
 
@@ -10,8 +13,9 @@ const blurUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAMCAYAAABFo
 
 
 const TutorCard = ({ tutor }) => {
+    const [slotData, setSlotData] = useState([]);
     // console.log(tutor);
-    const {_id, tutorName, photo, subject, hourlyFee, availableDays, availableTimeSlot, totalSlot, sessionStartDate, institution, experience, location, teachingMode, bio, createdBy, createdAt, updatedAt } = tutor
+    const { _id, tutorName, photo, subject, hourlyFee, availableDays, availableTimeSlot, totalSlot, sessionStartDate, institution, experience, location, teachingMode, bio, createdBy, createdAt, updatedAt } = tutor
     const router = useRouter();
     const handleBookNow = () => {
         router.push(`/tutors/${_id}`)
@@ -19,6 +23,26 @@ const TutorCard = ({ tutor }) => {
     const start = availableTimeSlot?.start
     const end = availableTimeSlot?.end
     const slots = generateTimeSlots(start, end)
+
+    useEffect(() => {
+        const FetchSlotsData = () => {
+            const slotstHandler = async () => {
+                const { data: tokenData } = await authClient.token()
+                const token = tokenData?.token
+                const getData = await tutorSlots(_id, token)
+                setSlotData(getData);
+            }
+            slotstHandler()
+        }
+        FetchSlotsData()
+    }, [_id])
+
+    const totalSlotAvailableInThisWeek = slotData.reduce(
+        (total, dayData) => {
+            return total + dayData.availableSlots;
+        },
+        0
+    );
 
     return (
         <Card className='p-3 md:p-4 lg:p-5 rounded-md shadow h-full flex flex-col justify-between bg-tc-background/50'>
@@ -51,7 +75,7 @@ const TutorCard = ({ tutor }) => {
                             availableDays.map((avDay, ind) => <h4 key={ind} className='flex gap-1'>{avDay}, </h4>)
                         }
                     </div>
-                    <h4>  { convertTo12Hour(availableTimeSlot.start)} - { convertTo12Hour(availableTimeSlot.end)}</h4>
+                    <h4>  {convertTo12Hour(availableTimeSlot.start)} - {convertTo12Hour(availableTimeSlot.end)}</h4>
                 </div>
             </CardContent>
             <Separator className="my-1" />
@@ -61,7 +85,7 @@ const TutorCard = ({ tutor }) => {
                         <div><span className='text-tc-secondary font-bold'>৳{hourlyFee}</span>
                             <span className='text-tc-muted'> /hr</span>
                         </div>
-                        <div className='text-tc-muted text-sm'>{slots.length} slots left</div>
+                        <div className='text-tc-muted text-sm'>{totalSlotAvailableInThisWeek} slots left</div>
                         <Button className={'bg-tc-primary text-tc-surface rounded-md px-3 py-2'} onClick={handleBookNow}>Book Now</Button>
                     </div>
                 </div>

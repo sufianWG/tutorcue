@@ -8,7 +8,7 @@ export const allTutors = async (searchparams) => {
     return data.tutors
 }
 
-export const tutorsDetail = async(id, token) => {
+export const tutorsDetail = async (id, token) => {
     const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -17,7 +17,7 @@ export const tutorsDetail = async(id, token) => {
     const data = await res.json();
     return data
 }
-export const tutorsWsP = async() => {
+export const tutorsWsP = async () => {
     const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors`);
     const data = await res.json();
     return data.tutors
@@ -27,4 +27,22 @@ export const paginationData = async () => {
     const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors`);
     const data = await res.json();
     return data.pagination
+}
+
+export const tutorSlots = async (tutorId, token) => {
+    const getRes = await fetch(
+        `${process.env.NEXT_PUBLIC_TUTORCUE_SERVER_URL}/tutorslots/${tutorId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    if (!getRes.ok) {
+        throw new Error(
+            `Slots getting failed, status: ${getRes.status}`
+        );
+    }
+    const getData = await getRes.json();
+    return getData;
 }
