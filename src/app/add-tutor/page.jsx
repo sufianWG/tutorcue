@@ -1,5 +1,3 @@
-import AddTutor from "@/components/AddTutor";
-
 export const metadata = {
     title: "Become a Tutor | TutorCue",
     description:
@@ -8,7 +6,7 @@ export const metadata = {
 const addTutorPage = () => {
     return (
         <div className="container mx-auto">
-            
+            Add-tuor Page..comming soon...
         </div>
     );
 };
