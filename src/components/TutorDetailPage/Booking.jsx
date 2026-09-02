@@ -16,7 +16,6 @@ const Booking = ({ tutor }) => {
     // const slots = generateTimeSlots(start, end)
     // console.log("slots:", slots);
 
-
     const weekDays = weekDaysList()
     // console.log("weekDays", weekDays);
 
