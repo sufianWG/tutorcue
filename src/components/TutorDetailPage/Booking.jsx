@@ -8,13 +8,14 @@ import { FaRegCalendarDays } from "react-icons/fa6";
 import { FiLayers } from "react-icons/fi";
 import { HiOutlineCalendarDays } from "react-icons/hi2";
 import { LuCalendarDays } from "react-icons/lu";
+import BookingModal from "./BookingModal";
 
 const Booking = ({ tutor }) => {
     const { _id, tutorName, availableTimeSlot, availableDays } = tutor;
     const start = availableTimeSlot?.start
     const end = availableTimeSlot?.end
     const slots = generateTimeSlots(start, end)
-    console.log("slots:", slots);
+    // console.log("slots:", slots);
 
     const slotWithStatus = slots.map(slot => {
         return {
@@ -23,7 +24,7 @@ const Booking = ({ tutor }) => {
             bookedBy: null
         }
     })
-    console.log("slotWithStatus", slotWithStatus);
+    // console.log("slotWithStatus", slotWithStatus);
 
     const weekDays = weekDaysList()
     // console.log("weekDays", weekDays);
@@ -52,7 +53,7 @@ const Booking = ({ tutor }) => {
         const slotsPostHandler = async () => {
             const { data:tokenData, error } = await authClient.token()
             const token = tokenData?.token
-            console.log("token", token);
+            // console.log("token", token);
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_TUTORCUE_SERVER_URL}/tutorslots`, {
                     method: "POST",
@@ -83,9 +84,7 @@ const Booking = ({ tutor }) => {
     const firstDateDayAndYr = `${weekDays[0]?.day}, ${weekDays[0]?.dateNumber} ${weekDays[0]?.month} ${weekDays[0]?.year}`
     const totalSlotAvailableInThisWeek = availableDays.length * slots.length
 
-    const handleBooking = () => {
-
-    }
+    
     // console.log("firstDateDayAndYr", firstDateDayAndYr);
     return (
         <div className="bg-tc-surface/70 p-3 md:p-7 shadow rounded-lg space-y-3">
@@ -122,7 +121,7 @@ const Booking = ({ tutor }) => {
                     } Slots Left </h2>
                 </div>
             </div>
-            <Button onClick={handleBooking} className={"mt-3 rounded-md text-base bg-tc-primary text-tc-surface font-semibold w-full flex items-center justify-center gap-2 hover:bg-tc-secondary"}> <HiOutlineCalendarDays size={20} /> Book Session</Button>
+            <BookingModal tutor={tutor}></BookingModal>
         </div>
     );
 };
