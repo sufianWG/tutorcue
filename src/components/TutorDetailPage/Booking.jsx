@@ -50,11 +50,15 @@ const Booking = ({ tutor }) => {
         if (!_id || !tutorSlotsData.length) return;
 
         const slotsPostHandler = async () => {
+            const { data:tokenData, error } = await authClient.token()
+            const token = tokenData?.token
+            console.log("token", token);
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_TUTORCUE_SERVER_URL}/tutorslots`, {
                     method: "POST",
                     headers: {
-                        "content-type": "application/json"
+                        "content-type": "application/json",
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify(tutorSlotsData)
                 })
@@ -80,7 +84,7 @@ const Booking = ({ tutor }) => {
     const totalSlotAvailableInThisWeek = availableDays.length * slots.length
 
     const handleBooking = () => {
-        
+
     }
     // console.log("firstDateDayAndYr", firstDateDayAndYr);
     return (

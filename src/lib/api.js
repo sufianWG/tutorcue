@@ -8,8 +8,12 @@ export const allTutors = async (searchparams) => {
     return data.tutors
 }
 
-export const tutorsDetail = async(id) => {
-    const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors/${id}`);
+export const tutorsDetail = async(id, token) => {
+    const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     const data = await res.json();
     return data
 }

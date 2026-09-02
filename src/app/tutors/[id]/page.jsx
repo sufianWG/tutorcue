@@ -2,11 +2,18 @@ import Booking from "@/components/TutorDetailPage/Booking";
 import TutorDetails from "@/components/TutorDetailPage/TutorDetails";
 import TutorSummaryCard from "@/components/TutorDetailPage/TutorSummaryCard";
 import { tutorsDetail } from "@/lib/api";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const tutorDetailPage = async ({ params }) => {
     const { id } = await params;
     // console.log(id);
-    const tutor = await tutorsDetail(id)
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+    // console.log("token", token);
+
+    const tutor = await tutorsDetail(id, token)
     console.log("tutor", tutor);
     return (
         <div className="bg-tc-background">
