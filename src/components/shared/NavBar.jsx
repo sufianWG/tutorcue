@@ -16,7 +16,10 @@ import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
     const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const { data: session, isPending, error, refetch } = authClient.useSession();
+    const [open, setOpen] = useState(false);
+    const { resolvedTheme } = useTheme();
     const user = session?.user;
     // console.log(user);
     const router = useRouter();
@@ -40,10 +43,13 @@ const NavBar = () => {
         { label: 'My Booked Sessions', path: '/my-booked-sessions' }
     ]
 
-    const [open, setOpen] = useState(false);
-    const { resolvedTheme } = useTheme();
 
-    if (!resolvedTheme) {
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
         return null;
     }
 
@@ -66,7 +72,7 @@ const NavBar = () => {
                     <div className='hidden md:block lg:hidden min-w-100'></div>
                     <ThemeSwitcher></ThemeSwitcher>
                     <div className='relative' onMouseEnter={() => setAvatarMenuOpen(true)} onMouseLeave={() => setAvatarMenuOpen(false)}>
-                        <Avatar size="(max-width: 768px) sm, md">
+                        <Avatar size="md">
                             <Avatar.Image
                                 src={user?.image}
                                 alt={user?.name}

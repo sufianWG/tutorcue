@@ -5,7 +5,7 @@ export const allTutors = async (searchparams) => {
     // console.log(queryUrl);
     const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors?${queryUrl}`);
     const data = await res.json();
-    return data.tutors
+    return data
 }
 
 export const tutorsDetail = async (id, token) => {
@@ -21,12 +21,6 @@ export const tutorsWsP = async () => {
     const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors`);
     const data = await res.json();
     return data.tutors
-}
-
-export const paginationData = async () => {
-    const res = await fetch(`${process.env.TUTORCUE_SERVER_URL}/tutors`);
-    const data = await res.json();
-    return data.pagination
 }
 
 export const tutorSlots = async (tutorId, token) => {

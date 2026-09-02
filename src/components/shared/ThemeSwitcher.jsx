@@ -30,8 +30,8 @@ export function ThemeSwitcher() {
           <Switch.Thumb>
             <Switch.Icon className="">
               {
-                  isDark ? (<FaMoon size="lg"/>) 
-                  : (<FaSun size="lg" />)
+                  isDark ? (<FaMoon size={16}/>) 
+                  : (<FaSun size={16} />)
               }
             </Switch.Icon>
           </Switch.Thumb>

@@ -13,8 +13,9 @@ const tutorsPage = async ({ searchParams }) => {
     //     location,
     //     sort
     // });
-    const tutors = await allTutors(params);
-    const pagiData = await paginationData();
+    const data = await allTutors(params);
+    const tutors = data.tutors
+    const pagiData = data.pagination;
     // console.log(pagiData);
     // console.log(tutors);
 
