@@ -144,6 +144,7 @@ Before inserting a day's slot information, the API checks whether the same tutor
 - Swiper
 - React Icons
 - Next Themes
+- JWT
 
 ### Backend
 
@@ -153,6 +154,7 @@ Before inserting a day's slot information, the API checks whether the same tutor
 - MongoDB Node.js Driver
 - CORS
 - dotenv
+- JWT
 
 ## Theme
 
@@ -166,31 +168,6 @@ The main color direction of the project uses:
 
 The UI is designed to keep tutor discovery, availability, and session scheduling easy to understand.
 
-## Project Structure
-
-The frontend is mainly organized into:
-
-```text
-src/
-├── app/
-│   ├── add-tutor/
-│   ├── login/
-│   ├── my-booked-sessions/
-│   ├── my-tutors/
-│   ├── profile/
-│   ├── signup/
-│   └── tutors/
-│       └── [id]/
-│
-├── components/
-│   ├── HeroBanners/
-│   ├── Home/
-│   ├── TutorDetailPage/
-│   └── shared/
-│
-├── assets/
-└── lib/
-```
 
 Some reusable utility functions are kept inside the `lib` folder, including date formatting, current week calculation, time formatting, and time slot generation.
 
@@ -265,17 +242,18 @@ Add the required environment variables and run:
 ```bash
 npm run dev
 ```
-
-## Work in Progress
-
-Some parts of TutorCue are still under development. The next main features are:
-
+## Work Done:
 - User registration and login
 - Authentication and user session handling
 - Protected routes
 - Complete session booking flow
 - Selecting a specific available time slot
 - Updating available slot count after booking
+
+## Work in Progress
+
+Some parts of TutorCue are still under development. The next main features are:
+
 - Restoring a slot after booking cancellation
 - User-specific booked sessions
 - Add Tutor functionality
