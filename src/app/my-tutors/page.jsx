@@ -1,5 +1,8 @@
-import React from 'react';
-
+export const metadata = {
+    title: "My Tutors | TutorCue",
+    description:
+        "Manage all tutors you have added on TutorCue. Update tutor information, availability, and teaching details.",
+};
 const myTutorPage = () => {
     return (
         <div>

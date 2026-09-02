@@ -4,7 +4,20 @@ import TutorSummaryCard from "@/components/TutorDetailPage/TutorSummaryCard";
 import { tutorsDetail } from "@/lib/api";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+export async function generateMetadata({ params }) {
+    const sessionData = await auth.api.getSession({
+        headers: await headers()
+    });
 
+    const jwtToken = sessionData.token;
+
+    const tutor = await tutorsDetail(params.id, jwtToken);
+
+    return {
+        title: `${tutor.tutorName} | TutorCue Tutor Profile`,
+        description: `Book a tutoring session with ${tutor.tutorName} for ${tutor.subject}. View availability, experience, teaching mode, and hourly fee.`,
+    };
+}
 const tutorDetailPage = async ({ params }) => {
     const { id } = await params;
     // console.log(id);

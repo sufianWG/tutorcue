@@ -1,5 +1,10 @@
 import Login from '@/components/Login';
-import React from 'react';
+
+export const metadata = {
+    title: "Login | TutorCue",
+    description:
+        "Sign in to your TutorCue account to manage tutors, bookings, and personalized learning sessions.",
+};
 
 const LoginPage = () => {
     return (

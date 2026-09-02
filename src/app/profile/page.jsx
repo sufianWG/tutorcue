@@ -1,5 +1,9 @@
-import React from 'react';
 
+export const metadata = {
+    title: "My Profile | TutorCue",
+    description:
+        "Manage your TutorCue profile information, account details, and learning preferences.",
+};
 const profilePage = () => {
     return (
         <div>

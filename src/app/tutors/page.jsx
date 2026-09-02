@@ -1,25 +1,19 @@
 import Pagination from "@/components/Pagination";
 import TutorCard from "@/components/TutorCard";
 import TutorSearchFilter from "@/components/TutorSearchFilter";
-import { allTutors, paginationData } from "@/lib/api";
+import { allTutors } from "@/lib/api";
 
+export const metadata = {
+    title: "Browse Tutors | TutorCue",
+    description:
+        "Browse qualified tutors by subject, location, institution, and teaching mode. Find the right tutor and book your learning session instantly.",
+};
 const tutorsPage = async ({ searchParams }) => {
-    // const {search, subject, teachingMode, location, sort } = await searchParams;
     const params = await searchParams;
-    // console.log({
-    //     search,
-    //     subject,
-    //     teachingMode,
-    //     location,
-    //     sort
-    // });
     const data = await allTutors(params);
     const tutors = data.tutors
     const pagiData = data.pagination;
     // console.log(pagiData);
-    // console.log(tutors);
-
-
 
     return (
         <div className="bg-tc-surface">
