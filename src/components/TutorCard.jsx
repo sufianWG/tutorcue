@@ -37,12 +37,16 @@ const TutorCard = ({ tutor }) => {
         FetchSlotsData()
     }, [_id])
 
-    const totalSlotAvailableInThisWeek = slotData.reduce(
-        (total, dayData) => {
-            return total + dayData.availableSlots;
-        },
-        0
-    );
+    const defaultTotalSlots =
+        availableDays.length * slots.length;
+
+    const totalSlotAvailableInThisWeek =
+        slotData.length > 0
+            ? slotData.reduce(
+                (total, day) => total + day.availableSlots,
+                0
+            )
+            : defaultTotalSlots;
 
     return (
         <Card className='p-3 md:p-4 lg:p-5 rounded-md shadow h-full flex flex-col justify-between bg-tc-background/50'>
