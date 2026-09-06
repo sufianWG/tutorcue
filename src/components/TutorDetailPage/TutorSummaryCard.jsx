@@ -23,9 +23,17 @@ const TutorSummaryCard = ({ tutor }) => {
                             </Image>
                             <div className="absolute left-0 bottom-0 bg-tc-primary/50 rounded-tr-lg rounded-bl-lg">
                                 <div className="flex gap-2 items-center p-1">
-                                    <IoStar size={20} className="text-tc-accent" />
-                                    <span className="text-tc-surface">{rating}</span>
-                                    <span className="text-tc-surface">({reviews} reviews)</span>
+                                    {
+                                        rating ? (
+                                            <>
+                                                <IoStar size={20} className="text-tc-accent" />
+                                                <span className="text-tc-surface">{rating}</span>
+                                                <span className="text-tc-surface">({reviews} reviews)</span>
+                                            </>
+                                        ) : (
+                                            <span className="text-tc-surface">New Tutor</span>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
