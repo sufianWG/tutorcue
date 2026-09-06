@@ -212,18 +212,18 @@ const SignUp = () => {
                             </TextField>
                             <TextField
                                 isRequired
-                                minLength={8}
+                                minLength={6}
                                 name="password"
                                 type={isVisible ? "text" : "password"}
                                 validate={(value) => {
-                                    if (value.length < 8) {
-                                        return "Password must be at least 8 characters";
+                                    if (value.length < 6) {
+                                        return "Password must be at least 6 characters";
                                     }
                                     if (!/[A-Z]/.test(value)) {
                                         return "Password must contain at least one uppercase letter";
                                     }
-                                    if (!/[0-9]/.test(value)) {
-                                        return "Password must contain at least one number";
+                                    if (!/[a-z]/.test(value)) {
+                                        return "Password must contain at least one lowercase letter";
                                     }
                                     return null;
                                 }}
@@ -247,17 +247,17 @@ const SignUp = () => {
                                         {isVisible ? <FaEye className="size-4" /> : <IoMdEyeOff className="size-4" />}
                                     </Button>
                                 </div>
-                                <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
+                                <Description>Must be at least 6 characters with 1 uppercase and 1 lowercase letter</Description>
                                 <FieldError />
                             </TextField>
                             <TextField
                                 isRequired
-                                minLength={8}
+                                minLength={6}
                                 name="confirmpassword"
                                 type={showConfirmPassword ? "text" : "password"}
                                 validate={(value) => {
-                                    if (value.length < 8) {
-                                        return "Password must be at least 8 characters";
+                                    if (value.length < 6) {
+                                        return "Password must be at least 6 characters";
                                     }
                                     if (value !== inputedPassword) {
                                         return "Passwords do not match";

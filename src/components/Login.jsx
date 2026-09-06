@@ -15,9 +15,12 @@ import HeadingTopBorder from "./shared/HeadingTopBorder";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const router = useRouter()
 
     const features = [
         {
@@ -56,6 +59,7 @@ const Login = () => {
         })
         if (error) {
             console.error("Login failed:", error);
+            toast("Login Failed, Please try again")
         } else {
             console.log("Login successful:", data);
         }
@@ -164,21 +168,8 @@ const Login = () => {
                             </TextField>
                             <TextField
                                 isRequired
-                                minLength={8}
                                 name="password"
                                 type={isVisible ? "text" : "password"}
-                                validate={(value) => {
-                                    if (value.length < 8) {
-                                        return "Password must be at least 8 characters";
-                                    }
-                                    if (!/[A-Z]/.test(value)) {
-                                        return "Password must contain at least one uppercase letter";
-                                    }
-                                    if (!/[0-9]/.test(value)) {
-                                        return "Password must contain at least one number";
-                                    }
-                                    return null;
-                                }}
                             >
                                 <Label>Password</Label>
                                 <div className="relative">
