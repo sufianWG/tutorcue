@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
     const jwtToken = sessionData.token;
 
     const tutor = await tutorsDetail(id, jwtToken);
-
+    console.log(`"from meta data", ${tutor.tutorName}`)
     return {
         title: `${tutor.tutorName} | TutorCue Tutor Profile`,
         description: `Book a tutoring session with ${tutor.tutorName} for ${tutor.subject}. View availability, experience, teaching mode, and hourly fee.`,

@@ -1,4 +1,3 @@
-let startDayOfWeek = null
 const startOfWeek = () => {
     const today = new Date()
     const currentDay = today.getDay();
@@ -13,11 +12,13 @@ const startOfWeek = () => {
         today.getDate() + diff
     )
     // console.log("monday:", monday);
-    startDayOfWeek = monday
+    return monday
 }
-startOfWeek();
-// console.log("startDayOfWeek:", startDayOfWeek);
 export const weekDaysList = (weekOffset = 0) => {
+    // protibar call korar shomoy fresh kore "ajker tarikh" hisab kora hocche,
+    // module load howar shomoy ekbar hisab kore rakhle purono/stale tarikh thake jete pare
+    const startDayOfWeek = startOfWeek();
+    // console.log("startDayOfWeek:", startDayOfWeek);
     const weekDays = []
     // console.log("weekDays:", weekDays);
     for (let i = 0; i < 7; i++) {

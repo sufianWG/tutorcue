@@ -4,7 +4,7 @@ import React from 'react';
 import { BiSolidGraduation } from 'react-icons/bi';
 import { FaRegUser } from 'react-icons/fa';
 import { GiOpenBook } from 'react-icons/gi';
-import { LuCalendarDays } from 'react-icons/lu';
+
 
 const TutorDetails = ({ tutor }) => {
     const { tutorName, aboutTutor, bio, teachingExpertise, subjectCovered, availableDays, availableTimeSlot } = tutor;
