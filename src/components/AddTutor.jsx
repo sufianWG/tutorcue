@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineBookOpen, HiOutlineClock, HiOutlineMapPin, HiOutlineUserCircle } from "react-icons/hi2";
 import { LuCalendarDays } from "react-icons/lu";
 import { MdOutlineSchool } from "react-icons/md";
+import Loader from "@/components/shared/Loader";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -12,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 const AddTutor = () => {
     const [mounted, setMounted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [availableDays, setAvailableDays] = useState(new Set());
     const [selectedSubject, setSelectedSubject] = useState("");
     const [selectedTeachingMode, setSelectedTeachingMode] = useState("");
@@ -53,6 +55,12 @@ const AddTutor = () => {
 
         const formData = new FormData(e.currentTarget);
         const formEntries = Object.fromEntries(formData.entries());
+        // console.log("formEntries", formEntries);
+
+        if (!formEntries.sessionStartDate || !formEntries.startTime || !formEntries.endTime || availableDays.size === 0) {
+            toast.error("Please select the session start date, time and available days")
+            return;
+        }
 
         const tutorData = {
             ...formEntries,
@@ -77,6 +85,8 @@ const AddTutor = () => {
 
         // console.log("Tutor Data:", tutorData);
 
+        setIsSubmitting(true)
+
         const { data: postTokenData } = await authClient.token()
         const token = postTokenData?.token
         // console.log("token", token);
@@ -91,6 +101,7 @@ const AddTutor = () => {
         })
         const addTutorResult = await res.json()
         // console.log("Add tutor result:", addTutorResult)
+        setIsSubmitting(false)
         if (res.ok) {
             toast.success("Tutor added successfully!")
             router.push('/tutors')
@@ -301,9 +312,17 @@ const AddTutor = () => {
                             </DatePicker>
                         </div>
                         <div className="pt-2 w-full">
-                            <Button type="submit" className="w-full bg-tc-primary text-white rounded-md font-semibold py-6 text-base hover:bg-tc-primary-hover">
-                                <HiOutlineBookOpen size={20} />
-                                Add Tutor
+                            <Button type="submit" isDisabled={isSubmitting} className="w-full bg-tc-primary text-white rounded-md font-semibold py-6 text-base hover:bg-tc-primary-hover">
+                                {
+                                    isSubmitting ? (
+                                        <Loader size="sm" className="text-white" text="Adding Tutor..." />
+                                    ) : (
+                                        <>
+                                            <HiOutlineBookOpen size={20} />
+                                            Add Tutor
+                                        </>
+                                    )
+                                }
                             </Button>
                         </div>
                     </Form>

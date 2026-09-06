@@ -17,13 +17,13 @@ const startOfWeek = () => {
 }
 startOfWeek();
 // console.log("startDayOfWeek:", startDayOfWeek);
-export const weekDaysList = () => {
+export const weekDaysList = (weekOffset = 0) => {
     const weekDays = []
     // console.log("weekDays:", weekDays);
     for (let i = 0; i < 7; i++) {
         const date = new Date(startDayOfWeek)
         date.setDate(
-            startDayOfWeek.getDate() + i
+            startDayOfWeek.getDate() + i + (weekOffset * 7)
         )
         // console.log("weekDay", date);
         const dayFull = date.toLocaleDateString("en-US", {

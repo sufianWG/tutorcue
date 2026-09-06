@@ -8,12 +8,14 @@ import { useEffect, useState } from "react";
 import { HiOutlineCalendarDays } from "react-icons/hi2";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { toast } from "react-toastify";
+import Loader from "@/components/shared/Loader";
 
 
 const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [selectedSessionMode, setSelectedSessionMode] = useState("online");
+    const [isBooking, setIsBooking] = useState(false);
     const { _id, teachingMode } = tutor;
     const modalState = useOverlayState();
 
@@ -88,6 +90,8 @@ const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
             },
             sessionMode: selectedSessionMode,
         }
+        setIsBooking(true)
+
         const { data: postTokenData, error } = await authClient.token()
         const token = postTokenData?.token
         // console.log("token", token);
@@ -102,6 +106,7 @@ const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
         })
         const bookingResult = await res.json()
         console.log("Booking result:", bookingResult)
+        setIsBooking(false)
         if (res.ok) {
             toast.success("Booking successful!")
             reFetchSlotsData()
@@ -260,8 +265,14 @@ const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
                                                 )}
                                         </div>
                                         <Modal.Footer>
-                                            <Button onClick={handleBooking} className={"w-full rounded-md bg-tc-secondary text-tc-surface hover:bg-tc-primary"} isDisabled={!selectedDateData || !selectedSlot ||
-                                                (teachingMode === "Both" && !selectedSessionMode)}>Book Now</Button>
+                                            <Button onClick={handleBooking} className={"w-full rounded-md bg-tc-secondary text-tc-surface hover:bg-tc-primary"} isDisabled={isBooking || !selectedDateData || !selectedSlot ||
+                                                (teachingMode === "Both" && !selectedSessionMode)}>
+                                                {
+                                                    isBooking ? (
+                                                        <Loader size="sm" className="text-white" text="Booking..." />
+                                                    ) : "Book Now"
+                                                }
+                                            </Button>
                                         </Modal.Footer>
                                     </form>
                                 </Surface>

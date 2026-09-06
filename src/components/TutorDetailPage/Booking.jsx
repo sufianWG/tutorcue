@@ -9,14 +9,17 @@ import { LuCalendarDays } from "react-icons/lu";
 import BookingModal from "./BookingModal";
 import { authClient } from "@/lib/auth-client";
 import { tutorSlots } from "@/lib/api";
+import Loader from "@/components/shared/Loader";
 
 const Booking = ({ tutor }) => {
     const { _id } = tutor;
     const [slotData, setSlotData] = useState([]);
+    const [isSlotDataLoading, setIsSlotDataLoading] = useState(true);
     // const slots = generateTimeSlots(start, end)
     // console.log("slots:", slots);
 
-    const weekDays = weekDaysList()
+    // ei week & next week miliye 2 week er din
+    const weekDays = weekDaysList().concat(weekDaysList(1))
     // console.log("weekDays", weekDays);
 
     // database theke latest slots data get korbe
@@ -29,10 +32,12 @@ const Booking = ({ tutor }) => {
             setSlotData(getData);
         } catch (error) {
             console.log("Error getting slots data:", error);
+        } finally {
+            setIsSlotDataLoading(false);
         }
     };
 
-    // page load hole current week er slots get korbe
+    // page load hole current + next week er slots get korbe
     useEffect(() => {
         if (!_id) return;
         const slotstHandler = async () => {
@@ -65,9 +70,18 @@ const Booking = ({ tutor }) => {
     );
 
     // console.log("firstDateDayAndYr", firstDateDayAndYr);
+
+    if (isSlotDataLoading) {
+        return (
+            <div className="bg-tc-surface/70 p-3 md:p-7 shadow rounded-lg">
+                <Loader text="Loading availability..." />
+            </div>
+        );
+    }
+
     return (
         <div className="bg-tc-surface/70 p-3 md:p-7 shadow rounded-lg space-y-3">
-            <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><LuCalendarDays size={20} /> Availability This Week</h2>
+            <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><LuCalendarDays size={20} /> Upcoming Availability</h2>
             <div>
                 {
                     weekDays.map((wDay, ind) => {
@@ -100,7 +114,7 @@ const Booking = ({ tutor }) => {
                     <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FaRegCalendarDays size={20} /> {firstDateDayAndYr} </h2>
                 </div>
                 <div>
-                    <h3 className="text-base text-tc-secondary font-semibold">Total Slots Left This Week</h3>
+                    <h3 className="text-base text-tc-secondary font-semibold">Total Slots Left (This & Next Week)</h3>
                     <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FiLayers size={20} /> {
                         totalSlotAvailableInThisWeek
                     } Slots Left </h2>

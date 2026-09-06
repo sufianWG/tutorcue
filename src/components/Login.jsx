@@ -17,9 +17,11 @@ import { IoMdEyeOff } from "react-icons/io";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Loader from "./shared/Loader";
 
 const Login = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter()
 
     const features = [
@@ -51,12 +53,14 @@ const Login = () => {
         const { email, password } = userData;
 
         console.log("email:", email, "password:", password);
+        setIsSubmitting(true)
         const { data, error } = await authClient.signIn.email({
             email,
             password,
             callbackURL: "/",
             rememberMe: false
         })
+        setIsSubmitting(false)
         if (error) {
             console.error("Login failed:", error);
             toast("Login Failed, Please try again")
@@ -189,8 +193,14 @@ const Login = () => {
                                 <FieldError />
                             </TextField>
                             <div className="flex gap-2">
-                                <Button className={"w-full bg-tc-primary text-tc-surface font-bold text-base rounded-md hover:bg-tc-primary-hover"} type="submit">
-                                    <FiLogIn size={24} /> Sign In
+                                <Button className={"w-full bg-tc-primary text-tc-surface font-bold text-base rounded-md hover:bg-tc-primary-hover"} type="submit" isDisabled={isSubmitting}>
+                                    {
+                                        isSubmitting ? (
+                                            <Loader size="sm" className="text-white" text="Signing In..." />
+                                        ) : (
+                                            <><FiLogIn size={24} /> Sign In</>
+                                        )
+                                    }
                                 </Button>
                             </div>
                             <div className="my-3 flex items-center font-bold justify-center text-center">

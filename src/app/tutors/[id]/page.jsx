@@ -5,13 +5,15 @@ import { tutorsDetail } from "@/lib/api";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 export async function generateMetadata({ params }) {
+    const { id } = await params;
+
     const sessionData = await auth.api.getSession({
         headers: await headers()
     });
 
     const jwtToken = sessionData.token;
 
-    const tutor = await tutorsDetail(params.id, jwtToken);
+    const tutor = await tutorsDetail(id, jwtToken);
 
     return {
         title: `${tutor.tutorName} | TutorCue Tutor Profile`,

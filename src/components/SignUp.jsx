@@ -16,12 +16,14 @@ import { CiLock } from "react-icons/ci";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Loader from "./shared/Loader";
 
 const SignUp = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [inputedPassword, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter()
     const features = [
         {
@@ -53,12 +55,14 @@ const SignUp = () => {
 
         console.log("email:", email, "password:", password, "name:", name, "image:", photoUrl);
 
+        setIsSubmitting(true)
         const { data, error } = await authClient.signUp.email({
             email,
             password,
             name,
             image: photoUrl,
         })
+        setIsSubmitting(false)
         if(!error) {
             await authClient.signOut();
             router.push('/login')
@@ -294,8 +298,14 @@ const SignUp = () => {
                                 </Checkbox.Content>
                             </Checkbox>
                             <div className="flex gap-2">
-                                <Button className={"w-full bg-tc-primary text-tc-surface font-bold text-base rounded-md hover:bg-tc-primary-hover"} type="submit">
-                                    <FiUserPlus size={24} /> Create Account
+                                <Button className={"w-full bg-tc-primary text-tc-surface font-bold text-base rounded-md hover:bg-tc-primary-hover"} type="submit" isDisabled={isSubmitting}>
+                                    {
+                                        isSubmitting ? (
+                                            <Loader size="sm" className="text-white" text="Creating Account..." />
+                                        ) : (
+                                            <><FiUserPlus size={24} /> Create Account</>
+                                        )
+                                    }
                                 </Button>
                             </div>
                             <div className="my-3 flex items-center font-bold justify-center text-center">

@@ -9,10 +9,13 @@ import { IoCalculatorOutline } from 'react-icons/io5';
 import { LuCalendarRange } from 'react-icons/lu';
 import { tutorsWsP } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import Loader from '@/components/shared/Loader';
 
 const SlideBanner1 = () => {
     const [tutors, setTutors] = useState([])
     const [pagination, setPagination] = useState({})
+    const [isTutorsLoading, setIsTutorsLoading] = useState(true)
+    const [isPaginationLoading, setIsPaginationLoading] = useState(true)
     // console.log("tutors", tutors);
     const router = useRouter()
     useEffect(() => {
@@ -27,6 +30,8 @@ const SlideBanner1 = () => {
                 setTutors(data.tutors)
             } catch (error) {
                 console.error("Error fetching tutors:", error);
+            } finally {
+                setIsTutorsLoading(false)
             }
         }
         fetchTutors()
@@ -43,6 +48,8 @@ const SlideBanner1 = () => {
                 setPagination(data.pagination)
             } catch (error) {
                 console.error("Error fetching pagination:", error);
+            } finally {
+                setIsPaginationLoading(false)
             }
         }
         fetchPagiData()
@@ -73,28 +80,36 @@ const SlideBanner1 = () => {
                         <Image src={HeroBannerImage} alt="Hero Banner Image" fill className="object-contain" />
                     </div>
                     <div className="static md:absolute md:-top-10 lg:-top-10 md:-left-20 lg:right-0 lg:w-fit flex flex-col items-center md:items-start bg-tc-surface shadow-lg p-4 rounded-md mx-4 lg:mx-0 space-y-1">
-                        <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg px-4">
-                            <div className='space-y-1'>
-                                <h3 className="text-sm font-bold flex items-center gap-2"> <IoCalculatorOutline size={25} />  Mathmatics</h3>
-                                <p className='text-xs text-tc-muted'><span>{pagination.totalTutors}</span>+ Tutors</p>
-                            </div>
-                        </div>
-                        <div className="flex -space-x-2">
-                            {tutors.slice(0, 3).map((tutor) => (
-                                <Avatar key={tutor._id} className="ring-2 ring-background">
-                                    <Avatar.Image alt={tutor.tutorName} src={tutor.photo} />
-                                    <Avatar.Fallback>
-                                        {tutor.tutorName
-                                            .split(" ")
-                                            .map((n) => n[0])
-                                            .join("")}
-                                    </Avatar.Fallback>
-                                </Avatar>
-                            ))}
-                            <Avatar className="ring-2 ring-background">
-                                <Avatar.Fallback className="text-xs">+{pagination.totalTutors - 3}</Avatar.Fallback>
-                            </Avatar>
-                        </div>
+                        {
+                            isTutorsLoading || isPaginationLoading ? (
+                                <Loader size="sm" />
+                            ) : (
+                                <>
+                                    <div className="md:-ml-4 w-fit flex items-center gap-4 justify-center lg:justify-start rounded-lg px-4">
+                                        <div className='space-y-1'>
+                                            <h3 className="text-sm font-bold flex items-center gap-2"> <IoCalculatorOutline size={25} />  Mathmatics</h3>
+                                            <p className='text-xs text-tc-muted'><span>{pagination.totalTutors}</span>+ Tutors</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex -space-x-2">
+                                        {tutors.slice(0, 3).map((tutor) => (
+                                            <Avatar key={tutor._id} className="ring-2 ring-background">
+                                                <Avatar.Image alt={tutor.tutorName} src={tutor.photo} />
+                                                <Avatar.Fallback>
+                                                    {tutor.tutorName
+                                                        .split(" ")
+                                                        .map((n) => n[0])
+                                                        .join("")}
+                                                </Avatar.Fallback>
+                                            </Avatar>
+                                        ))}
+                                        <Avatar className="ring-2 ring-background">
+                                            <Avatar.Fallback className="text-xs">+{pagination.totalTutors - 3}</Avatar.Fallback>
+                                        </Avatar>
+                                    </div>
+                                </>
+                            )
+                        }
                     </div>
                     <div className="static md:absolute md:-bottom-5 lg:-bottom-5 md:-right-10 lg:-right-10 md:w-fit flex flex-col items-center md:items-start bg-tc-surface shadow-lg md:p-2 lg:p-4 rounded-md mx-2 lg:mx-2 space-y-0.5 mt-2 md:mt-0 mb-8 md:mb-0">
                         <h3 className='font-bold text-xs flex items-center gap-2'> <FaCircle className='text-green-500' size={10} /> Next Available</h3>
