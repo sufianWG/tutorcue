@@ -1,3 +1,5 @@
+import MyTutors from "@/components/MyTutors/MyTutors";
+
 export const metadata = {
     title: "My Tutors | TutorCue",
     description:
@@ -6,7 +8,7 @@ export const metadata = {
 const myTutorPage = () => {
     return (
         <div>
-            This is the My Tutors Page
+            <MyTutors></MyTutors>
         </div>
     );
 };
