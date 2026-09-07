@@ -11,12 +11,15 @@ import BookingModal from "./BookingModal";
 import { authClient } from "@/lib/auth-client";
 import { tutorSlots } from "@/lib/api";
 import Loader from "@/components/shared/Loader";
+import SessionTokenCard from "@/components/Home/SessionTokenCard";
 
 const Booking = ({ tutor }) => {
     const { _id } = tutor;
     const [slotData, setSlotData] = useState([]);
     const [isSlotDataLoading, setIsSlotDataLoading] = useState(true);
     const [showNextWeek, setShowNextWeek] = useState(false);
+    // sofol booking howar por ei tutor er sathe sobcheye latest booking er session pass token dekhabe
+    const [latestSession, setLatestSession] = useState(null);
     const { isPending: isSessionPending } = authClient.useSession();
     // const slots = generateTimeSlots(start, end)
     // console.log("slots:", slots);
@@ -91,53 +94,56 @@ const Booking = ({ tutor }) => {
     }
 
     return (
-        <div className="bg-tc-surface/70 p-3 md:p-7 shadow rounded-lg space-y-3">
-            <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><LuCalendarDays size={20} /> Upcoming Availability</h2>
-            <div>
-                {
-                    weekDays.map((wDay, ind) => {
-                        const daySlotData = slotData.find(item =>
-                            item.year === wDay.year &&
-                            item.month === wDay.month &&
-                            Number(item.dateNumber) === Number(wDay.dateNumber)
-                        );
-                        return <div key={ind}>
-                            <div className="flex justify-between items-center gap-2 md:gap-0 space-y-3">
-                                <div className="text-base text-tc-secondary">
-                                    <span>{wDay.day}</span>
-                                    <span className="ml-3">{wDay.dateNumber} {wDay.month}</span>
-                                </div>
-                                <div>
-                                    <p className="text-base text-tc-secondary">{
-                                        daySlotData
-                                            ? `${daySlotData.availableSlots} slots left`
-                                            : "N/A"} </p>
+        <div className="space-y-3">
+            <div className="bg-tc-surface/70 p-3 md:p-7 shadow rounded-lg space-y-3">
+                <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><LuCalendarDays size={20} /> Upcoming Availability</h2>
+                <div>
+                    {
+                        weekDays.map((wDay, ind) => {
+                            const daySlotData = slotData.find(item =>
+                                item.year === wDay.year &&
+                                item.month === wDay.month &&
+                                Number(item.dateNumber) === Number(wDay.dateNumber)
+                            );
+                            return <div key={ind}>
+                                <div className="flex justify-between items-center gap-2 md:gap-0 space-y-3">
+                                    <div className="text-base text-tc-secondary">
+                                        <span>{wDay.day}</span>
+                                        <span className="ml-3">{wDay.dateNumber} {wDay.month}</span>
+                                    </div>
+                                    <div>
+                                        <p className="text-base text-tc-secondary">{
+                                            daySlotData
+                                                ? `${daySlotData.availableSlots} slots left`
+                                                : "N/A"} </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    })
+                        })
+                    }
+                </div>
+                {
+                    !showNextWeek &&
+                    <Button onClick={() => setShowNextWeek(true)} className="w-full rounded-md bg-tc-surface-alt text-tc-secondary border border-tc-border hover:bg-tc-primary hover:text-tc-surface flex items-center justify-center gap-2">
+                        Next Week <MdOutlineNavigateNext size={20} />
+                    </Button>
                 }
-            </div>
-            {
-                !showNextWeek &&
-                <Button onClick={() => setShowNextWeek(true)} className="w-full rounded-md bg-tc-surface-alt text-tc-secondary border border-tc-border hover:bg-tc-primary hover:text-tc-surface flex items-center justify-center gap-2">
-                    Next Week <MdOutlineNavigateNext size={20} />
-                </Button>
-            }
-            <Separator className="my-1" />
-            <div className="space-y-3">
-                <div>
-                    <h3 className="text-base text-tc-secondary font-semibold">Session Starts From</h3>
-                    <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FaRegCalendarDays size={20} /> {firstDateDayAndYr} </h2>
+                <Separator className="my-1" />
+                <div className="space-y-3">
+                    <div>
+                        <h3 className="text-base text-tc-secondary font-semibold">Session Starts From</h3>
+                        <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FaRegCalendarDays size={20} /> {firstDateDayAndYr} </h2>
+                    </div>
+                    <div>
+                        <h3 className="text-base text-tc-secondary font-semibold">Total Slots Left {showNextWeek ? "(This & Next Week)" : "(This Week)"}</h3>
+                        <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FiLayers size={20} /> {
+                            totalSlotAvailableInThisWeek
+                        } Slots Left </h2>
+                    </div>
                 </div>
-                <div>
-                    <h3 className="text-base text-tc-secondary font-semibold">Total Slots Left {showNextWeek ? "(This & Next Week)" : "(This Week)"}</h3>
-                    <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FiLayers size={20} /> {
-                        totalSlotAvailableInThisWeek
-                    } Slots Left </h2>
-                </div>
+                <BookingModal tutor={tutor} slotData={slotData} reFetchSlotsData={reFetchSlotsData} onBookingSuccess={setLatestSession}></BookingModal>
             </div>
-            <BookingModal tutor={tutor} slotData={slotData} reFetchSlotsData={reFetchSlotsData}></BookingModal>
+            <SessionTokenCard subject={tutor.subject} tutor={tutor.tutorName} date={latestSession?.date} startTime={latestSession?.startTime} endTime={latestSession?.endTime} mode={latestSession?.mode} token={latestSession?.token} circleBg="bg-tc-background"></SessionTokenCard>
         </div>
     );
 };

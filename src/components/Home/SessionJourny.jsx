@@ -39,7 +39,7 @@ const SessionJourny = () => {
     ];
     return (
         <div className="bg-tc-surface-alt">
-            <div className="container mx-auto block md:flex px-3 sm:px-4 md:px-0 md:gap-3 items-center py-5">
+            <div className="container mx-auto block md:flex px-3 sm:px-4 md:px-0 md:gap-3 items-center py-5 justify-center md:justify-between">
                 <div className="leftSide flex-2.5 space-y-4 py-4">
                     <HeadingTopBorder></HeadingTopBorder>
                     <h2 className='text-3xl text-tc-heading font-bold text-center md:text-left'>Your Session Journey</h2>
@@ -71,7 +71,7 @@ const SessionJourny = () => {
                     </div>
                 </div>
                 <div className="rightSide flex-2.5"></div>
-                    <SessionTokenCard></SessionTokenCard>
+                    <SessionTokenCard subject="Mathmetics" tutor="Hayder Ali" date="September 20, 2026" startTime="7: 00 PM" endTime="8: 00 PM" mode="Online (Google Meet)" token="tc-m8k42p"></SessionTokenCard>
             </div>
         </div>
     );

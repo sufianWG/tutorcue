@@ -7,17 +7,26 @@ import { Button, Calendar, DateField, DatePicker, Label, Modal, Surface, useOver
 import { useEffect, useState } from "react";
 import { HiOutlineCalendarDays } from "react-icons/hi2";
 import { MdOutlineCalendarMonth } from "react-icons/md";
+import { IoTicketOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Loader from "@/components/shared/Loader";
+import SessionTokenCard from "@/components/Home/SessionTokenCard";
 
 
-const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
+const BookingModal = ({ tutor, slotData, reFetchSlotsData, onBookingSuccess }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [selectedSessionMode, setSelectedSessionMode] = useState("online");
     const [isBooking, setIsBooking] = useState(false);
+    const [bookedSession, setBookedSession] = useState(null);
     const { _id, teachingMode } = tutor;
     const modalState = useOverlayState();
+
+    // modal notun kore khulle age booking er session card ta jeno na dekhay
+    const handleOpenModal = () => {
+        setBookedSession(null);
+        modalState.open();
+    }
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -108,34 +117,73 @@ const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
         console.log("Booking result:", bookingResult)
         setIsBooking(false)
         if (res.ok) {
+            // sofol booking er session pass card er jonne dorkari sob data ekhane joga kora hocche
+            const completedSession = {
+                subject: tutor.subject,
+                tutor: tutor.tutorName,
+                date: `${selectedDateData.dayFull}, ${selectedDateData.dateNumber} ${selectedDateData.month} ${selectedDateData.year}`,
+                startTime: convertTo12Hour(selectedSlot.start),
+                endTime: convertTo12Hour(selectedSlot.end),
+                mode: teachingMode === "Both" ? selectedSessionMode : teachingMode,
+                token: bookingResult.sessionPassCode
+            }
             toast.success("Booking successful!")
             reFetchSlotsData()
-            modalState.close();
+            setBookedSession(completedSession)
+            onBookingSuccess?.(completedSession)
         } else {
             toast.error("Booking failed!")
         }
     }
 
+    const handleCloseAfterBooking = () => {
+        modalState.close();
+        setBookedSession(null);
+    }
+
     return ( 
         <div>
             <Modal state={modalState}>
-                <Button onPress={modalState.open} variant="secondary" className={"mt-3 rounded-md text-base bg-tc-primary text-tc-surface font-semibold w-full flex items-center justify-center gap-2 hover:bg-tc-secondary"} ><HiOutlineCalendarDays size={20} /> Book Session</Button>
+                <Button onPress={handleOpenModal} variant="secondary" className={"mt-3 rounded-md text-base bg-tc-primary text-tc-surface font-semibold w-full flex items-center justify-center gap-2 hover:bg-tc-secondary"} ><HiOutlineCalendarDays size={20} /> Book Session</Button>
                 <Modal.Backdrop>
                     <Modal.Container placement="auto">
                         <Modal.Dialog className="sm:max-w-md">
                             <Modal.CloseTrigger />
-                            <Modal.Header>
-                                <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                    <MdOutlineCalendarMonth className="text-lg" />
-                                </Modal.Icon>
-                                <Modal.Heading>Book a Session</Modal.Heading>
-                                <p className="mt-1.5 text-sm leading-5 text-muted">
-                                    Book a session with the tutor by filling out the form below.
-                                </p>
-                            </Modal.Header>
-                            <Modal.Body className="p-4">
-                                <Surface variant="default">
-                                    <form className="flex flex-col gap-4 p-2">
+                            {
+                                bookedSession ? (
+                                    <>
+                                        <Modal.Header>
+                                            <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                                                <IoTicketOutline className="text-lg" />
+                                            </Modal.Icon>
+                                            <Modal.Heading>Booking Confirmed!</Modal.Heading>
+                                            <p className="mt-1.5 text-sm leading-5 text-muted">
+                                                Here is your session pass. Keep the token safe, you will need it to join the session.
+                                            </p>
+                                        </Modal.Header>
+                                        <Modal.Body className="p-4">
+                                            <SessionTokenCard subject={bookedSession.subject} tutor={bookedSession.tutor} date={bookedSession.date} startTime={bookedSession.startTime} endTime={bookedSession.endTime} mode={bookedSession.mode} token={bookedSession.token} circleBg="bg-overlay"></SessionTokenCard>
+                                            <Modal.Footer>
+                                                <Button onClick={handleCloseAfterBooking} className={"w-full rounded-md bg-tc-primary text-tc-surface hover:bg-tc-secondary"}>
+                                                    Done
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal.Body>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Modal.Header>
+                                            <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                                                <MdOutlineCalendarMonth className="text-lg" />
+                                            </Modal.Icon>
+                                            <Modal.Heading>Book a Session</Modal.Heading>
+                                            <p className="mt-1.5 text-sm leading-5 text-muted">
+                                                Book a session with the tutor by filling out the form below.
+                                            </p>
+                                        </Modal.Header>
+                                        <Modal.Body className="p-4">
+                                            <Surface variant="default">
+                                                <form className="flex flex-col gap-4 p-2">
                                         <DatePicker
                                             value={selectedDate}
                                             onChange={handleDateChange}
@@ -274,9 +322,12 @@ const BookingModal = ({ tutor, slotData, reFetchSlotsData }) => {
                                                 }
                                             </Button>
                                         </Modal.Footer>
-                                    </form>
-                                </Surface>
-                            </Modal.Body>
+                                            </form>
+                                        </Surface>
+                                    </Modal.Body>
+                                    </>
+                                )
+                            }
                         </Modal.Dialog>
                     </Modal.Container>
                 </Modal.Backdrop>
