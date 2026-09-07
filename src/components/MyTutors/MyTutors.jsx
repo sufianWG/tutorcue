@@ -188,7 +188,7 @@ const MyTutors = () => {
                                                             <Button onClick={() => openEditModal(tutor)} className="border border-tc-border text-tc-secondary rounded-md px-3 py-1.5 text-sm flex items-center gap-1 hover:border-tc-primary">
                                                                 <HiOutlinePencilSquare size={16} /> Edit
                                                             </Button>
-                                                            <Button onClick={() => openDeleteModal(tutor)} className="border border-tc-error text-tc-error rounded-md px-3 py-1.5 text-sm flex items-center gap-1 hover:bg-tc-error hover:text-tc-surface">
+                                                            <Button onClick={() => openDeleteModal(tutor)} className="border border-tc-error text-tc-error rounded-md px-3 py-1.5 text-sm flex items-center gap-1 bg-tc-error text-tc-surface hover:bg-tc-error hover:text-tc-surface">
                                                                 <HiOutlineTrash size={16} /> Delete
                                                             </Button>
                                                         </div>

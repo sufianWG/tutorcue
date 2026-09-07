@@ -1,3 +1,4 @@
+import MyBookedSessions from "@/components/MyBookedSessions/MyBookedSessions";
 
 export const metadata = {
     title: "My Booked Sessions | TutorCue",
@@ -8,7 +9,7 @@ export const metadata = {
 const myBookedSessionPage = () => {
     return (
         <div>
-            This is the My Booked Sessions Page
+            <MyBookedSessions></MyBookedSessions>
         </div>
     );
 };
