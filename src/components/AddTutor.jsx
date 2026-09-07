@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Calendar, DateField, DatePicker, FieldError, Form, Input, Label, ListBox, Select, Surface, TextArea, TextField, TimeField } from "@heroui/react";
+import { Button, Calendar, DateField, DatePicker, FieldError, Form, Input, Label, ListBox, Select, Surface, Tag, TagGroup, TextArea, TextField, TimeField } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { HiOutlineBookOpen, HiOutlineClock, HiOutlineMapPin, HiOutlineUserCircle } from "react-icons/hi2";
 import { LuCalendarDays } from "react-icons/lu";
@@ -11,12 +11,60 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 
+// keyword lekhe Enter chaplei ta tag hishebe ei ListBox er nice ekta chotto text box e dekhabe,
+// e-commerce site e product tags er khetre ei design pattern e use hoy
+const TagInputField = ({ label, placeholder, values, setValues }) => {
+    const [draft, setDraft] = useState("");
+
+    const handleAddTag = (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+
+        const trimmed = draft.trim();
+        if (!trimmed) return;
+
+        // already thakle abar duplicate jog kora hobe na
+        if (values.includes(trimmed)) {
+            setDraft("");
+            return;
+        }
+
+        setValues([...values, trimmed]);
+        setDraft("");
+    };
+
+    const handleRemoveTag = (keys) => {
+        setValues(values.filter((value) => !keys.has(value)));
+    };
+
+    return (
+        <div className="space-y-2">
+            <p className="text-sm font-medium text-tc-secondary">{label}</p>
+            <Input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={handleAddTag} placeholder={placeholder} className="border border-tc-border bg-tc-surface-alt rounded-md px-3 py-2 w-full" />
+            {
+                values.length > 0 &&
+                <TagGroup aria-label={label} onRemove={handleRemoveTag}>
+                    <TagGroup.List items={values.map((value) => ({ id: value }))} className="flex flex-wrap gap-2">
+                        {(item) => (
+                            <Tag id={item.id} className="border border-tc-border bg-tc-surface-alt text-tc-secondary rounded-md px-3 py-1 text-sm">
+                                {item.id}
+                            </Tag>
+                        )}
+                    </TagGroup.List>
+                </TagGroup>
+            }
+        </div>
+    );
+};
+
 const AddTutor = () => {
     const [mounted, setMounted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [availableDays, setAvailableDays] = useState(new Set());
     const [selectedSubject, setSelectedSubject] = useState("");
     const [selectedTeachingMode, setSelectedTeachingMode] = useState("");
+    const [teachingExpertise, setTeachingExpertise] = useState([]);
+    const [subjectCovered, setSubjectCovered] = useState([]);
     const router = useRouter()
 
     useEffect(() => {
@@ -57,8 +105,8 @@ const AddTutor = () => {
         const formEntries = Object.fromEntries(formData.entries());
         // console.log("formEntries", formEntries);
 
-        if (!formEntries.sessionStartDate || !formEntries.startTime || !formEntries.endTime || availableDays.size === 0) {
-            toast.error("Please select the session start date, time and available days")
+        if (!formEntries.sessionStartDate || !formEntries.startTime || !formEntries.endTime || availableDays.size === 0 || teachingExpertise.length === 0 || subjectCovered.length === 0) {
+            toast.error("Please select the session start date, time, available days, teaching expertise and subjects covered")
             return;
         }
 
@@ -73,6 +121,9 @@ const AddTutor = () => {
             totalSlot: Number(formEntries.totalSlot),
 
             availableDays: [...availableDays],
+
+            teachingExpertise,
+            subjectCovered,
 
             availableTimeSlot: {
                 start: formEntries.startTime,
@@ -222,6 +273,13 @@ const AddTutor = () => {
                                 <TextArea placeholder="Write a short introduction about yourself..." rows={4} className="border border-tc-border bg-tc-surface-alt rounded-md px-3 py-2 w-full" />
                                 <FieldError />
                             </TextField>
+                            <TextField name="aboutTutor" isRequired>
+                                <Label>About Tutor</Label>
+                                <TextArea placeholder="Write in detail about your teaching background and how you help students..." rows={5} className="border border-tc-border bg-tc-surface-alt rounded-md px-3 py-2 w-full" />
+                                <FieldError />
+                            </TextField>
+                            <TagInputField label="Teaching Expertise (press Enter to add)" placeholder="e.g. Concept Building, then press Enter" values={teachingExpertise} setValues={setTeachingExpertise} />
+                            <TagInputField label="Subject Covered (press Enter to add)" placeholder="e.g. JavaScript Fundamentals, then press Enter" values={subjectCovered} setValues={setSubjectCovered} />
                         </div>
                         <div className="space-y-5 w-full">
                             <h2 className="text-lg font-bold text-tc-heading flex items-center gap-2">
