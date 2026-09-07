@@ -1,11 +1,12 @@
 "use client"
 
 import { weekDaysList } from "@/lib/formatDate";
-import { Separator } from "@heroui/react";
+import { Button, Separator } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { FiLayers } from "react-icons/fi";
 import { LuCalendarDays } from "react-icons/lu";
+import { MdOutlineNavigateNext } from "react-icons/md";
 import BookingModal from "./BookingModal";
 import { authClient } from "@/lib/auth-client";
 import { tutorSlots } from "@/lib/api";
@@ -15,12 +16,15 @@ const Booking = ({ tutor }) => {
     const { _id } = tutor;
     const [slotData, setSlotData] = useState([]);
     const [isSlotDataLoading, setIsSlotDataLoading] = useState(true);
+    const [showNextWeek, setShowNextWeek] = useState(false);
+    const { isPending: isSessionPending } = authClient.useSession();
     // const slots = generateTimeSlots(start, end)
     // console.log("slots:", slots);
 
-    // ei week & next week miliye 2 week er din
-    const weekDays = weekDaysList().concat(weekDaysList(1))
-    // console.log("weekDays", weekDays);
+    // default e shudhu ei sptaher 7 din, "Next Week" button chaplei porer sopta o jog hoy
+    const weekDays = showNextWeek ? weekDaysList().concat(weekDaysList(1)) : weekDaysList()
+    // console.log("weekDays", weekDays)
+    // console.log("slotData", slotData);
 
     // database theke latest slots data get korbe
     const reFetchSlotsData = async () => {
@@ -38,13 +42,14 @@ const Booking = ({ tutor }) => {
     };
 
     // page load hole current + next week er slots get korbe
+    // session ready na hoya porjonto wait kora hocche, na hole token na peye khali slotData thake jay
     useEffect(() => {
-        if (!_id) return;
+        if (!_id || isSessionPending) return;
         const slotstHandler = async () => {
             await reFetchSlotsData()
         }
         slotstHandler()
-    }, [_id])
+    }, [_id, isSessionPending])
 
     // current week er first available session date
     const firstAvailableDay = weekDays.find(wDay =>
@@ -61,10 +66,16 @@ const Booking = ({ tutor }) => {
     ? `${firstAvailableDay.day}, ${firstAvailableDay.dateNumber} ${firstAvailableDay.month} ${firstAvailableDay.year}`
     : "N/A";
 
-    // database er actual available slots total
-    const totalSlotAvailableInThisWeek = slotData.reduce(
-        (total, dayData) => {
-            return total + dayData.availableSlots;
+    // ekhon jotogula din display hocche (7 na 14), shudhu totogula diner slot jog kore total ber kora hocche,
+    // ete list e ja dekhano hocche total tar sathe সবসময় mile jabe
+    const totalSlotAvailableInThisWeek = weekDays.reduce(
+        (total, wDay) => {
+            const daySlotData = slotData.find(item =>
+                item.year === wDay.year &&
+                item.month === wDay.month &&
+                Number(item.dateNumber) === Number(wDay.dateNumber)
+            );
+            return total + (daySlotData ? daySlotData.availableSlots : 0);
         },
         0
     );
@@ -107,6 +118,12 @@ const Booking = ({ tutor }) => {
                     })
                 }
             </div>
+            {
+                !showNextWeek &&
+                <Button onClick={() => setShowNextWeek(true)} className="w-full rounded-md bg-tc-surface-alt text-tc-secondary border border-tc-border hover:bg-tc-primary hover:text-tc-surface flex items-center justify-center gap-2">
+                    Next Week <MdOutlineNavigateNext size={20} />
+                </Button>
+            }
             <Separator className="my-1" />
             <div className="space-y-3">
                 <div>
@@ -114,7 +131,7 @@ const Booking = ({ tutor }) => {
                     <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FaRegCalendarDays size={20} /> {firstDateDayAndYr} </h2>
                 </div>
                 <div>
-                    <h3 className="text-base text-tc-secondary font-semibold">Total Slots Left (This & Next Week)</h3>
+                    <h3 className="text-base text-tc-secondary font-semibold">Total Slots Left {showNextWeek ? "(This & Next Week)" : "(This Week)"}</h3>
                     <h2 className="text-tc-secondary text-lg font-bold flex gap-2 items-center"><FiLayers size={20} /> {
                         totalSlotAvailableInThisWeek
                     } Slots Left </h2>
