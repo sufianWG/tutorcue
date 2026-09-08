@@ -61,11 +61,11 @@ const Footer = () => {
                     <div className="lg:col-span-1 space-y-2">
                         <h3 className="text-tc-secondary font-bold">Learning</h3>
                         <ul className="space-y-1">
-                            <Link href="/" className="text-base hover:text-tc-muted"> <li>All Subjects</li> </Link>
-                            <Link href="/" className="text-base hover:text-tc-muted"> <li>Online Tutors</li> </Link>
-                            <Link href="/" className="text-base hover:text-tc-muted"> <li>Offline Tutors</li> </Link>
-                            <Link href="/" className="text-base hover:text-tc-muted"> <li>How It Works</li> </Link>
-                            <Link href="/" className="text-base hover:text-tc-muted"> <li>Become a Tutor</li> </Link>
+                            <Link href="/tutors" className="text-base hover:text-tc-muted"> <li>All Subjects</li> </Link>
+                            <Link href="/tutors?teachingMode=online" className="text-base hover:text-tc-muted"> <li>Online Tutors</li> </Link>
+                            <Link href="/tutors?teachingMode=offline" className="text-base hover:text-tc-muted"> <li>Offline Tutors</li> </Link>
+                            <Link href="/#session-journey" className="text-base hover:text-tc-muted"> <li>How It Works</li> </Link>
+                            <Link href="/add-tutor" className="text-base hover:text-tc-muted"> <li>Become a Tutor</li> </Link>
                         </ul>
                     </div>
                     <div className="lg:col-span-1 space-y-2">

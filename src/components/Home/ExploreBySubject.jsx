@@ -13,12 +13,12 @@ import { BiLeaf } from 'react-icons/bi';
 
 const ExploreBySubject = () => {
     const subjects = [
-        { id: 1, name: "Mathematics", total: 240, sublink: "/", icon: <IoCalculatorOutline size={25} /> },
-        { id: 2, name: "Physics", total: 180, sublink: "/", icon: <FaReact size={25} /> },
-        { id: 3, name: "English", total: 210, sublink: "/", icon: <GiOpenBook size={25} /> },
-        { id: 4, name: "Computer Science", total: 190, sublink: "/", icon: <GrPersonalComputer size={25} /> },
-        { id: 5, name: "Chemistry", total: 160, sublink: "/", icon: <SlChemistry size={25} /> },
-        { id: 6, name: "Biology", total: 150, sublink: "/", icon: <BiLeaf size={25} /> },
+        { id: 1, name: "Mathematics", total: 240, sublink: "/tutors?subject=mathematics", icon: <IoCalculatorOutline size={25} /> },
+        { id: 2, name: "Physics", total: 180, sublink: "/tutors?subject=physics", icon: <FaReact size={25} /> },
+        { id: 3, name: "English", total: 210, sublink: "/tutors?subject=english", icon: <GiOpenBook size={25} /> },
+        { id: 4, name: "Computer Science", total: 190, sublink: "/tutors?subject=computer-science", icon: <GrPersonalComputer size={25} /> },
+        { id: 5, name: "Chemistry", total: 160, sublink: "/tutors?subject=chemistry", icon: <SlChemistry size={25} /> },
+        { id: 6, name: "Biology", total: 150, sublink: "/tutors?subject=biology", icon: <BiLeaf size={25} /> },
     ]
     return (
         <div className='bg-tc-surface'>

@@ -7,7 +7,18 @@ import HeroBannerImage3 from '@/assets/slider-img-3.png';
 import { FaUser } from 'react-icons/fa6';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { IoVideocam } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
 const SlideBanner3 = () => {
+    const router = useRouter()
+    const handleBookSessionBtn = () => {
+        router.push("/tutors")
+    }
+    const handleHowItWorksBtn = () => {
+        document.getElementById("session-journey")?.scrollIntoView({ behavior: "smooth" })
+    }
+    const handleJoinNowBtn = () => {
+        router.push("/my-booked-sessions")
+    }
     return (
         <div className='bg-tc-surface-alt'>
             <div className='max-w-6xl mx-auto py-10 lg:py-15 px-8 md:px-12 lg:px-14 lg:min-h-screen flex flex-col md:flex-row items-center justify-start md:justify-between gap-10'>
@@ -22,8 +33,8 @@ const SlideBanner3 = () => {
                         <div className="flex items-center gap-2"> <span className="bg-tc-primary/30 text-tc-secondary p-2 rounded-full"> <MdOutlineSecurity size={18} /> </span> Safe & Secure </div>
                     </div>
                     <div className="flex gap-4">
-                        <Button className={"rounded-md bg-tc-primary text-tc-surface hover:bg-tc-primary-hover px-2 py-1"}>Book a Session <FaArrowRight /> </Button>
-                        <Button className={"rounded-md bg-tc-transparent text-tc-secondary hover:bg-tc-primary hover:text-tc-surface px-2 py-1 border-tc-secondary hover:border-tc-primary border-2"}>How it Works <FaPlay /></Button>
+                        <Button className={"rounded-md bg-tc-primary text-tc-surface hover:bg-tc-primary-hover px-2 py-1"} onClick={handleBookSessionBtn}>Book a Session <FaArrowRight /> </Button>
+                        <Button className={"rounded-md bg-tc-transparent text-tc-secondary hover:bg-tc-primary hover:text-tc-surface px-2 py-1 border-tc-secondary hover:border-tc-primary border-2"} onClick={handleHowItWorksBtn}>How it Works <FaPlay /></Button>
                     </div>
                 </div>
                 <div className="lg:mb-0 relative">
@@ -39,7 +50,7 @@ const SlideBanner3 = () => {
                                 <p className='text-xs font-bold'>Today, 7:00 PM</p>
                             </div>
                         </div>
-                        <Button className="flex items-center gap-2 w-full text-sm rounded-md"> <span className="text-tc-surface p-2 rounded-md">Join Now</span> </Button>
+                        <Button className="flex items-center gap-2 w-full text-sm rounded-md" onClick={handleJoinNowBtn}> <span className="text-tc-surface p-2 rounded-md">Join Now</span> </Button>
                     </div>
                 </div>
             </div>

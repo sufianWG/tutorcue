@@ -38,7 +38,7 @@ const SessionJourny = () => {
         },
     ];
     return (
-        <div className="bg-tc-surface-alt">
+        <div id="session-journey" className="bg-tc-surface-alt">
             <div className="container mx-auto block md:flex px-3 sm:px-4 md:px-0 md:gap-3 items-center py-5 justify-center md:justify-between">
                 <div className="leftSide flex-2.5 space-y-4 py-4">
                     <HeadingTopBorder></HeadingTopBorder>

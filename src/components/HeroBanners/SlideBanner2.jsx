@@ -29,7 +29,7 @@ const SlideBanner2 = () => {
         router.push("/tutors")
     }
     const handleLearnMoreBtn = () => {
-        router.push("/")
+        document.getElementById("session-journey")?.scrollIntoView({ behavior: "smooth" })
     }
     return (
         <div className='bg-tc-surface-alt'>
