@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@heroui/react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlay, FaArrowRight } from "react-icons/fa";
 import HeroBannerImage2 from '@/assets/slider-2-img.png';
 import HeroBannerImage2Light from '@/assets/slider-2-img-light.png';
@@ -12,10 +12,15 @@ import { MdOutlineBarChart } from 'react-icons/md';
 import { HiUsers } from 'react-icons/hi';
 import { useRouter } from 'next/navigation';
 const SlideBanner2 = () => {
+    const [mounted, setMounted] = useState(false);
     const router = useRouter()
     const { resolvedTheme } = useTheme();
 
-    if (!resolvedTheme) {
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
         return null;
     }
     const isDark = resolvedTheme == "dark"

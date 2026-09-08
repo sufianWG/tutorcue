@@ -6,12 +6,14 @@ import Logo from '@/assets/tutorCue.png';
 import LightLogo from '@/assets/tutorCue-light.png';
 import { MdOutlineTopic } from 'react-icons/md';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { FaRegClock, FaUserTie } from 'react-icons/fa';
 import { LuCalendarDays } from 'react-icons/lu';
 import { RiComputerLine } from 'react-icons/ri';
 
 
 const SessionTokenCard = ({ subject, tutor, date, startTime, endTime, mode, token, circleBg = "bg-tc-surface-alt" }) => {
+    const [mounted, setMounted] = useState(false);
     const tutorSession = {
         subject,
         tutor,
@@ -22,7 +24,11 @@ const SessionTokenCard = ({ subject, tutor, date, startTime, endTime, mode, toke
     }
     const { resolvedTheme } = useTheme();
 
-    if (!resolvedTheme) {
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
         return null;
     }
     const isDark = resolvedTheme == "dark"

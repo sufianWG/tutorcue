@@ -4,13 +4,19 @@ import Logo from '@/assets/tutorCue.png';
 import LightLogo from '@/assets/tutorCue-light.png';
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaEnvelope, FaFacebook, FaHeart, FaInstagram, FaLinkedin, FaPhone, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
+    const [mounted, setMounted] = useState(false);
     const { resolvedTheme } = useTheme();
 
-    if (!resolvedTheme) {
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
         return null;
     }
     const isDark = resolvedTheme == "dark"

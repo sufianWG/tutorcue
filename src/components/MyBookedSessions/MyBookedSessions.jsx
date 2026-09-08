@@ -171,6 +171,7 @@ const MyBookedSessions = () => {
                                                     <Table.Column>Date</Table.Column>
                                                     <Table.Column>Time</Table.Column>
                                                     <Table.Column>Mode</Table.Column>
+                                                    <Table.Column>Session Token</Table.Column>
                                                     <Table.Column>Status</Table.Column>
                                                     <Table.Column>Actions</Table.Column>
                                                 </Table.Header>
@@ -186,6 +187,7 @@ const MyBookedSessions = () => {
                                                                 <Table.Cell>{booking.day}, {booking.dateNumber} {booking.month} {booking.year}</Table.Cell>
                                                                 <Table.Cell>{convertTo12Hour(booking.sessionTime.start)} - {convertTo12Hour(booking.sessionTime.end)}</Table.Cell>
                                                                 <Table.Cell>{booking.sessionMode}</Table.Cell>
+                                                                <Table.Cell>{booking.sessionPassCode}</Table.Cell>
                                                                 <Table.Cell>
                                                                     <Chip className={`rounded-md ${status === "Upcoming" ? 'bg-tc-primary/30' : status === "Completed" ? 'bg-tc-success/40' : 'bg-tc-error/20'}`}>{status}</Chip>
                                                                 </Table.Cell>

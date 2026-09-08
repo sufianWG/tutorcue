@@ -22,7 +22,7 @@ const Pagination = ({ pagiData }) => {
         const page = selected + 1
         const params = new URLSearchParams(searchParams.toString())
         params.set("page", page.toString())
-        router.push(`${pathname}?${params.toString()}`), {scroll: false}
+        router.push(`${pathname}?${params.toString()}`, {scroll: false})
 
     }
     return (

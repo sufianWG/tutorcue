@@ -18,6 +18,9 @@ const TutorSearchFilter = () => {
         } else {
             params.delete(queryName)
         }
+        // notun search/filter dile purono page number ta abar 1 e reset kore dite hobe,
+        // na hole ager page number e onek beshi filtered result na thakle khali result dekhabe
+        params.delete("page")
         router.push(`${pathname}?${params.toString()}`)
     }
 
