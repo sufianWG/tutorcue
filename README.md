@@ -1,27 +1,36 @@
 # TutorCue
 
-TutorCue is a tutor discovery and session scheduling web application. The main idea of this project is to make it easier for students to find tutors, check tutor information and weekly availability, and book learning sessions based on available time slots.
+TutorCue is a full tutor discovery and session booking web application. Students can find tutors, check tutor information and weekly availability, book a learning session in an available time slot, and manage their bookings — while tutors (any logged-in user) can list themselves as a tutor and manage their own tutor listings.
 
-The project is being built with **Next.js** on the frontend and **Express.js + MongoDB** on the backend.
+The project is built with **Next.js** on the frontend and **Express.js + MongoDB** on the backend, with **BetterAuth** (email/password and Google login) issuing JWTs that the backend verifies on every private request.
 
 ## Project Links
 
 - Frontend Repository: [https://github.com/sufianWG/tutorcue](https://github.com/sufianWG/tutorcue)
 - Backend Repository: [https://github.com/sufianWG/tutorcue-server](https://github.com/sufianWG/tutorcue-server)
-- Live Link: [https://tutorcue.vercel.app/]
+- Live Site: [https://tutorcue.vercel.app/](https://tutorcue.vercel.app/)
+- Live API: [https://tutorcue-server.vercel.app/](https://tutorcue-server.vercel.app/)
 
 ## Current Features
 
 ### Home Page
 
 - Responsive homepage layout
-- Three-slide hero slider
+- Three-slide hero slider, each slide with working call-to-action buttons (Browse Tutors, Book a Session, How It Works)
 - Explore tutors by subject section
 - Available tutors section
-- Session journey section
+- Session journey section explaining how booking works
 - Reusable tutor cards
 - Responsive navbar and footer
-- Light and dark theme support
+- Dark theme by default, with a light/dark switcher in the navbar
+
+### Login & Register
+
+- Email/password login and registration
+- Google social login
+- Password validation (uppercase letter, lowercase letter, minimum 6 characters) with inline errors, not a generic alert
+- JWT issued on successful login (email/password and Google) and used to authorize private API calls
+- Toast feedback on success/failure instead of `alert()`
 
 ### Tutors Page
 
@@ -42,29 +51,60 @@ The project is being built with **Next.js** on the frontend and **Express.js + M
 
 ### Tutor Details Page
 
-- Dynamic tutor details page using tutor ID
+- Dynamic tutor details page using the tutor ID
+- Dynamic browser tab title using the tutor's name
 - Tutor summary information
 - Subject and teaching information
 - Location and teaching mode information
-- Tutor availability section
-- Weekly available days
-- Weekly date calculation
-- Time slot generation from tutor start and end time
-- Total available slot calculation for the current week
+- Upcoming availability for the current week, with a "Next Week" button to reveal the following week's slots
+- Book Session modal with date and time slot selection
+- On successful booking, a Session Pass card is shown with the generated access token, and the same Session Pass also appears below the booking box for that tutor going forward
+
+### Add Tutor Page (private)
+
+- Add a new tutor with Tutor Name, Photo URL, Subject, Hourly Fee, Location, Teaching Mode, Institution, Experience, Total Slot, Session Start Date, Available Days, Available Time, Bio, About Tutor, Teaching Expertise, and Subjects Covered
+- Teaching Expertise and Subjects Covered use a type-and-press-Enter tag input
+- Toast on success/failure, redirect to the Tutors page after adding
+
+### My Tutors Page (private)
+
+- Table of all tutors created by the logged-in user, with search and pagination
+- Friendly empty state when the user has not added any tutors yet
+- Edit opens a pre-filled Update Tutor modal and saves without a full page reload
+- Delete opens a confirm modal before removing a tutor
+
+### My Booked Sessions Page (private)
+
+- Table of the logged-in user's own booked sessions only
+- Filter by status (Upcoming, Completed, Cancelled)
+- Cancel opens a confirm modal, then cancels the booking and restores the tutor's slot
+- Session Pass sidebar showing the user's most relevant session's access token
+- Friendly empty state with a link to browse tutors
+
+### Profile Page (private)
+
+- Shows the logged-in user's photo, name, email, verification status, and member-since date, sourced directly from the auth session
+- Sign out
+
+### Global
+
+- Dynamic per-route page titles
+- A custom 404 page and a custom error boundary page
+- A shared loading spinner used across every loading state (page loads, form submissions, modal actions)
+- Toast notifications for every create/update/delete action, no `alert()` anywhere in the app
+- JWT sent with every private API call and verified by the backend
 
 ### Tutor Slot System
 
-TutorCue also has an initial slot management system.
+TutorCue automatically manages weekly tutor availability behind the scenes:
 
-The application can:
-
-- Generate session time slots from a tutor's available time range
-- Match tutor `availableDays` with the actual dates of the current week
-- Prepare separate slot data for each available day
-- Add an initial `available` status to every generated slot
-- Store slot information in MongoDB
-- Store total and available slot counts
-- Prevent the same tutor's slot data for the same day/date from being inserted repeatedly
+- Generates session time slots from a tutor's available time range
+- Matches a tutor's `availableDays` with the actual dates of the current and next week
+- Prepares separate slot data for each available day
+- Adds an initial `available` status to every generated slot
+- Stores slot information in MongoDB, with total and available slot counts
+- Prevents the same tutor's slot data for the same day/date from being inserted more than once, even under concurrent requests
+- Restores a slot back to `available` when its booking is cancelled
 
 Example slot structure:
 
@@ -96,54 +136,36 @@ Each available day is stored with information such as:
 
 ## Backend Features
 
-The Express server currently handles:
+The Express server (see the [backend repository](https://github.com/sufianWG/tutorcue-server) for full endpoint documentation) handles:
 
-### Get Tutors
+- `GET /tutors` — tutor list with search, filtering, sorting, pagination
+- `GET /tutors/:id` — single tutor details
+- `POST /tutors` — add a tutor (private)
+- `PATCH /tutors/:id` — update a tutor the logged-in user owns (private)
+- `DELETE /tutors/:id` — delete a tutor the logged-in user owns (private)
+- `GET /my-tutors` — tutors created by the logged-in user (private)
+- `GET /tutorslots/:tutorId` — a tutor's current and next week slots, auto-generating them if they don't exist yet
+- `POST /booking` — book an available slot (private)
+- `GET /my-bookings` — the logged-in user's own bookings (private)
+- `PATCH /bookings/:id/cancel` — cancel a booking and restore its slot (private)
 
-```http
-GET /tutors
-```
-
-Supports:
-
-- Search
-- Subject filtering
-- Teaching mode filtering
-- Location filtering
-- Institution search
-- Sorting
-- Pagination
-
-### Get Single Tutor
-
-```http
-GET /tutors/:id
-```
-
-Returns the details of a tutor using the MongoDB document ID.
-
-### Store Tutor Slots
-
-```http
-POST /tutorslots
-```
-
-Stores generated weekly tutor slot information in MongoDB.
-
-Before inserting a day's slot information, the API checks whether the same tutor and date already exist. Existing slot data is skipped instead of being inserted again.
+Private routes verify the JWT sent from the frontend before running.
 
 ## Technologies Used
 
 ### Frontend
 
-- Next.js
+- Next.js (App Router)
 - React
 - JavaScript
 - Tailwind CSS
 - HeroUI
 - Swiper
+- React Paginate
 - React Icons
+- React Toastify
 - Next Themes
+- BetterAuth (email/password + Google, JWT plugin)
 - JWT
 
 ### Backend
@@ -154,11 +176,11 @@ Before inserting a day's slot information, the API checks whether the same tutor
 - MongoDB Node.js Driver
 - CORS
 - dotenv
-- JWT
+- jose (JWT verification via JWKS)
 
 ## Theme
 
-TutorCue supports both light and dark themes.
+TutorCue supports both light and dark themes, defaulting to dark for new visitors. Once a visitor switches themes from the navbar, their choice is remembered for future visits.
 
 The main color direction of the project uses:
 
@@ -168,21 +190,29 @@ The main color direction of the project uses:
 
 The UI is designed to keep tutor discovery, availability, and session scheduling easy to understand.
 
-
 Some reusable utility functions are kept inside the `lib` folder, including date formatting, current week calculation, time formatting, and time slot generation.
 
-## Environment Variable
+## Environment Variables
 
-Create a `.env.local` file in the frontend project and add:
+Create a `.env.local` (or `.env`) file in the frontend project and add:
 
 ```env
 NEXT_PUBLIC_TUTORCUE_SERVER_URL=https://tutorcue-server.vercel.app
+TUTORCUE_SERVER_URL=https://tutorcue-server.vercel.app
+NEXT_PUBLIC_SITE_URL=your_deployed_frontend_url
+BETTER_AUTH_SECRET=your_better_auth_secret
+BETTER_AUTH_URL=your_deployed_frontend_url
+MONGODB_URL=your_mongodb_connection_string
+GOOGLE_CLIENT_ID=your_google_oauth_client_id
+GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
 ```
 
 For the backend, create a `.env` file and add your MongoDB connection string:
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
+FRONTEND_URL=your_deployed_frontend_url
+PORT=6028
 ```
 
 ## Run the Frontend Locally
@@ -242,32 +272,10 @@ Add the required environment variables and run:
 ```bash
 npm run dev
 ```
-## Work Done:
-- User registration and login
-- Authentication and user session handling
-- Protected routes
-- Complete session booking flow
-- Selecting a specific available time slot
-- Updating available slot count after booking
 
-## Work in Progress
+## Project Status
 
-Some parts of TutorCue are still under development. The next main features are:
-
-- Restoring a slot after booking cancellation
-- User-specific booked sessions
-- Add Tutor functionality
-- My Tutors management
-- Update and delete tutor functionality
-- Booking status management
-- Digital session token
-- User profile functionality
-
-## Current Development Status
-
-At the current stage, the tutor discovery flow, search and filtering system, tutor details page, weekly availability calculation, time slot generation, and initial MongoDB-based tutor slot storage are working.
-
-The next main focus is connecting authentication with the slot system so that logged-in users can select and book available tutor sessions.
+TutorCue is complete. The full flow — discovering tutors, registering/logging in, adding a tutor, browsing and filtering tutors, booking an available session, managing your own tutors, managing your own booked sessions, and cancelling a booking — is implemented end to end, on both the frontend and the backend.
 
 ## Author
 
