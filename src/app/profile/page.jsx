@@ -1,3 +1,4 @@
+import Profile from "@/components/Profile/Profile";
 
 export const metadata = {
     title: "My Profile | TutorCue",
@@ -7,7 +8,7 @@ export const metadata = {
 const profilePage = () => {
     return (
         <div>
-            This is the Profile Page
+            <Profile></Profile>
         </div>
     );
 };

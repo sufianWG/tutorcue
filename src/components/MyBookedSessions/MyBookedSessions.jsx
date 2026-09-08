@@ -192,7 +192,7 @@ const MyBookedSessions = () => {
                                                                 <Table.Cell>
                                                                     {
                                                                         status === "Upcoming" ? (
-                                                                            <Button onClick={() => openCancelModal(booking)} className="border border-tc-error text-tc-error rounded-md px-3 py-1.5 text-sm hover:bg-tc-error hover:text-tc-surface">
+                                                                            <Button onClick={() => openCancelModal(booking)} className="border border-tc-error text-tc-error rounded-md px-3 py-1.5 text-sm bg-tc-error text-tc-surface hover:bg-tc-error hover:text-tc-surface">
                                                                                 Cancel
                                                                             </Button>
                                                                         ) : (
