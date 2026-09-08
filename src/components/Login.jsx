@@ -22,6 +22,7 @@ import Loader from "./shared/Loader";
 const Login = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
     const router = useRouter()
 
     const features = [
@@ -70,9 +71,11 @@ const Login = () => {
     };
 
     const handleGoogleSignIn = async () => {
+        setIsGoogleSubmitting(true)
         const { data, error } = await authClient.signIn.social({
             provider: "google",
         });
+        setIsGoogleSubmitting(false)
         if (!error) {
             console.log("Google Sign Up Successful:", data);
             router.push('/tutors')
@@ -209,8 +212,14 @@ const Login = () => {
                                 <Separator className="w-full max-w-[50px] md:max-w-[100px]"></Separator>
                             </div>
                             <div>
-                                <Button onClick={handleGoogleSignIn} className={"text-tc-secondary bg-transparent border-2 border-tc-muted/40 rounded-md py-2 px-3 flex justify-center items-center w-full font-bold hover:bg-tc-primary-hover hover:text-tc-surface"}>
-                                    <FcGoogle size={30} /> Continue with Google
+                                <Button onClick={handleGoogleSignIn} isDisabled={isGoogleSubmitting} className={"text-tc-secondary bg-transparent border-2 border-tc-muted/40 rounded-md py-2 px-3 flex justify-center items-center w-full font-bold hover:bg-tc-primary-hover hover:text-tc-surface"}>
+                                    {
+                                        isGoogleSubmitting ? (
+                                            <Loader size="sm" text="Redirecting..." />
+                                        ) : (
+                                            <><FcGoogle size={30} /> Continue with Google</>
+                                        )
+                                    }
                                 </Button>
                             </div>
                             <div className="text-base text-center">

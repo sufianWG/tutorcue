@@ -13,6 +13,7 @@ import { RxAvatar } from 'react-icons/rx';
 import { authClient } from '@/lib/auth-client';
 import AvatarMenu from './AvatarMenu';
 import { useRouter } from 'next/navigation';
+import Loader from './Loader';
 
 const NavBar = () => {
     const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
@@ -72,16 +73,24 @@ const NavBar = () => {
                     <div className='hidden md:block lg:hidden min-w-100'></div>
                     <ThemeSwitcher></ThemeSwitcher>
                     <div className='relative' onMouseEnter={() => setAvatarMenuOpen(true)} onMouseLeave={() => setAvatarMenuOpen(false)}>
-                        <Avatar size="md">
-                            <Avatar.Image
-                                src={user?.image}
-                                alt={user?.name}
-                                referrerPolicy="no-referrer"
-                            />
-                            {user && <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>}
-                            {!user && <RxAvatar size={30} />}
-                        </Avatar>
-                        {avatarMenuOpen && <AvatarMenu user={user} handleSignIn={handleSignIn} handleSignOut={handleSignOut} />}
+                        {
+                            isPending ? (
+                                <div className='w-10 h-10 flex items-center justify-center'>
+                                    <Loader size="sm" />
+                                </div>
+                            ) : (
+                                <Avatar size="md">
+                                    <Avatar.Image
+                                        src={user?.image}
+                                        alt={user?.name}
+                                        referrerPolicy="no-referrer"
+                                    />
+                                    {user && <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>}
+                                    {!user && <RxAvatar size={30} />}
+                                </Avatar>
+                            )
+                        }
+                        {avatarMenuOpen && !isPending && <AvatarMenu user={user} handleSignIn={handleSignIn} handleSignOut={handleSignOut} />}
                     </div>
                 </div>
                 <div className="lg:hidden">
